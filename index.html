@@ -2,841 +2,718 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>DJ Claude</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Summer Gains Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
-*{box-sizing:border-box;margin:0;padding:0}
-:root{--pink:#ff2d87;--cyan:#00f5ff;--purple:#8b5cf6;--orange:#ff8c00;--green:#00ff88;--bg:#06060f;--surf:rgba(255,255,255,.04);--bord:rgba(255,255,255,.08);--t:#d0d0ef;--td:rgba(255,255,255,.38);}
-body{font-family:'Share Tech Mono',monospace;background:var(--bg);color:var(--t);min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;opacity:.5;pointer-events:none;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")}
-.orb{font-family:'Orbitron',monospace!important}
-.screen{display:none;min-height:100vh;padding:20px;position:relative;z-index:1}
-.screen.active{display:flex;flex-direction:column}
-#s-setup{align-items:center;justify-content:center}
-.card{background:var(--surf);border:1px solid var(--bord);border-radius:14px;padding:24px}
-.panel{background:var(--surf);border:1px solid var(--bord);border-radius:10px;padding:14px;position:relative}
-.ptitle{font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:2.5px;color:rgba(255,255,255,.28);text-transform:uppercase;margin-bottom:10px}
-.inp{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:8px;color:var(--t);font-family:'Share Tech Mono',monospace;font-size:13px;padding:11px 14px;outline:none;width:100%;transition:border-color .2s}
-.inp:focus{border-color:rgba(0,245,255,.45);box-shadow:0 0 0 3px rgba(0,245,255,.07)}
-.inp::placeholder{color:rgba(255,255,255,.2)}
-.inp-sm{font-size:11px;padding:8px 11px}
-.btn{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;border:none;border-radius:8px;cursor:pointer;padding:12px 18px;transition:all .15s;text-transform:uppercase}
-.btn:hover{filter:brightness(1.22);transform:scale(1.02)}
-.btn:active{transform:scale(.97)}
-.btn:disabled{opacity:.32;cursor:not-allowed;transform:none!important;filter:none}
-.btn-pink{background:rgba(255,45,135,.2);color:var(--pink);border:1px solid rgba(255,45,135,.5)}
-.vbtn{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:.8px;border:none;border-radius:8px;cursor:pointer;padding:12px 6px;transition:all .15s;text-transform:uppercase;width:100%;line-height:1.5}
-.vbtn:hover{transform:scale(1.04);filter:brightness(1.25)}
-.vbtn:active{transform:scale(.96)}
-.skip-btn{border:2px solid var(--pink);background:rgba(255,45,135,.08);color:var(--pink);cursor:pointer;border-radius:8px;font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;padding:13px;transition:all .15s;text-transform:uppercase;width:100%;margin-top:9px}
-.skip-btn:hover{background:rgba(255,45,135,.2);box-shadow:0 0 24px rgba(255,45,135,.35)}
-.skip-btn:disabled{opacity:.32;cursor:not-allowed;box-shadow:none}
-.play-btn{border:2px solid var(--cyan);background:rgba(0,245,255,.08);color:var(--cyan);cursor:pointer;border-radius:50%;width:46px;height:46px;font-size:17px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
-.play-btn:hover{background:rgba(0,245,255,.2);box-shadow:0 0 20px rgba(0,245,255,.4)}
-.sm-btn{background:rgba(0,245,255,.08);border:1px solid rgba(0,245,255,.28);color:var(--cyan);border-radius:6px;cursor:pointer;font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1px;padding:9px 12px;white-space:nowrap;transition:all .15s}
-.sm-btn:hover{background:rgba(0,245,255,.18)}
-.qitem{display:flex;align-items:center;gap:8px;padding:6px 9px;border-radius:6px;border:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.02);transition:all .2s}
-.qitem:hover{background:rgba(255,255,255,.05)}
-.edot{width:20px;height:20px;border-radius:50%;font-size:7px;font-family:'Orbitron',monospace;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.msg{padding:5px 9px;border-radius:5px;animation:fadeUp .3s ease}
-.logo{font-family:'Orbitron',monospace;font-size:24px;font-weight:900;letter-spacing:6px;color:var(--pink);text-shadow:0 0 24px rgba(255,45,135,.55),0 0 48px rgba(255,45,135,.22)}
-.step-row{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06)}
-.step-row:last-of-type{border-bottom:none}
-.badge{width:28px;height:28px;border-radius:50%;background:rgba(255,45,135,.18);border:1px solid rgba(255,45,135,.4);color:var(--pink);font-family:'Orbitron',monospace;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}
-.pill{font-family:'Orbitron',monospace;font-size:8px;font-weight:700;letter-spacing:1.5px;padding:3px 10px;border-radius:20px;display:inline-flex;align-items:center;gap:5px}
-.pill-dot{width:5px;height:5px;border-radius:50%}
-.dj-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px;flex:1;margin-bottom:11px;min-height:0}
-#yt-stage{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:8px;overflow:hidden;margin-bottom:8px}
-.yt-layer{position:absolute;inset:0;transition:opacity 8s ease}
-.yt-layer iframe,.yt-layer>div{width:100%!important;height:100%!important}
-#tx-strip{height:3px;width:100%;background:rgba(255,255,255,.08);border-radius:0 0 8px 8px;overflow:hidden;position:absolute;bottom:0;left:0}
-#tx-fill{height:100%;width:0%;transition:width 1s linear}
-#stage-pulse{position:absolute;inset:0;border:3px solid var(--pink);border-radius:8px;opacity:0;pointer-events:none}
-#beat-flash{position:absolute;inset:0;background:var(--pink);border-radius:8px;opacity:0;pointer-events:none;transition:opacity .05s}
-#hype-bar{position:absolute;bottom:3px;left:0;right:0;height:4px;pointer-events:none}
-#hype-range{position:absolute;height:100%;background:rgba(0,245,255,.32);border-radius:2px}
-#hype-head{position:absolute;width:3px;height:100%;background:var(--cyan);border-radius:2px;box-shadow:0 0 5px var(--cyan)}
-#waveform-canvas{width:100%;height:44px;border-radius:6px;margin-bottom:6px;background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.06);display:block}
-#energy-meter{height:4px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden;margin-bottom:7px}
-#energy-fill{height:100%;border-radius:2px;background:linear-gradient(to right,var(--purple),var(--pink));width:0%;transition:width .08s ease}
-#outro-warn{display:none;padding:5px 10px;border-radius:6px;background:rgba(255,140,0,.15);border:1px solid rgba(255,140,0,.4);font-family:'Orbitron',monospace;font-size:9px;color:var(--orange);letter-spacing:1px;margin-bottom:6px;text-align:center}
-#analysis-panel{background:rgba(0,255,136,.05);border:1px solid rgba(0,255,136,.15);border-radius:8px;padding:10px 12px;margin-bottom:8px}
-@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-@keyframes pumpRing{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.015);opacity:.25}}
-.pulse-anim{animation:pulse 1.4s ease-in-out infinite}
-.ring-anim{animation:pumpRing .46s ease-in-out infinite}
-#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:rgba(15,5,30,.95);border:1px solid var(--pink);color:var(--pink);font-family:'Orbitron',monospace;font-size:11px;letter-spacing:1px;padding:10px 20px;border-radius:8px;display:none;z-index:999}
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2eb;
+    --orange: #ff5c00;
+    --gray: #1e1e1e;
+    --gray2: #2a2a2a;
+    --gray3: #333;
+    --muted: #777;
+    --text: #b0a99a;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background:var(--black); color:var(--white); font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.6; }
+
+  /* NAV */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(10,10,10,0.93); backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--gray2);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 40px; height:56px;
+  }
+  .nav-logo { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--orange); letter-spacing:2px; }
+  .nav-links { display:flex; gap:24px; }
+  .nav-links a { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--white); }
+
+  /* HERO */
+  .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:60px 60px 80px; position:relative; overflow:hidden; border-bottom:1px solid var(--gray2); }
+  .hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse at 80% 20%, rgba(255,92,0,0.18) 0%, transparent 60%), radial-gradient(ellipse at 10% 80%, rgba(255,92,0,0.08) 0%, transparent 50%); }
+  .hero-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px); background-size:60px 60px; }
+  .hero-tag { font-family:'Space Mono',monospace; font-size:11px; color:var(--orange); letter-spacing:3px; text-transform:uppercase; margin-bottom:24px; position:relative; }
+  .hero h1 { font-family:'Bebas Neue',sans-serif; font-size:clamp(80px,14vw,160px); line-height:0.9; letter-spacing:2px; position:relative; }
+  .hero h1 span { color:var(--orange); display:block; }
+  .hero-sub { font-size:16px; color:var(--muted); margin-top:32px; max-width:460px; position:relative; font-weight:300; line-height:1.8; }
+  .hero-stats { display:flex; gap:48px; margin-top:48px; position:relative; flex-wrap:wrap; }
+  .stat { display:flex; flex-direction:column; }
+  .stat-val { font-family:'Bebas Neue',sans-serif; font-size:42px; color:var(--orange); line-height:1; }
+  .stat-label { font-size:10px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; margin-top:4px; font-family:'Space Mono',monospace; }
+
+  /* LAYOUT */
+  .container { max-width:920px; margin:0 auto; padding:0 40px; }
+  section { padding:80px 0; border-bottom:1px solid var(--gray2); }
+  .section-label { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--orange); margin-bottom:16px; }
+  h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(48px,6vw,72px); line-height:1; letter-spacing:1px; margin-bottom:40px; }
+  p { color:var(--text); margin-bottom:16px; line-height:1.8; font-weight:300; }
+  strong { color:var(--white); font-weight:600; }
+
+  /* ── TRACKER ── */
+  .tracker-wrap { background:var(--gray); padding:40px; margin-bottom:3px; }
+  .tracker-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:28px; flex-wrap:wrap; gap:12px; }
+  .tracker-title { font-family:'Bebas Neue',sans-serif; font-size:36px; color:var(--white); }
+  .tracker-sub { font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:1px; margin-top:4px; }
+  .week-nav { display:flex; align-items:center; gap:12px; margin-bottom:20px; flex-wrap:wrap; }
+  .week-btn { background:var(--gray2); border:none; color:var(--white); cursor:pointer; font-family:'Space Mono',monospace; font-size:11px; padding:8px 16px; transition:background 0.15s; }
+  .week-btn:hover { background:var(--gray3); }
+  .week-label { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--orange); min-width:110px; text-align:center; }
+  .week-progress { flex:1; min-width:80px; height:4px; background:var(--gray2); border-radius:2px; overflow:hidden; }
+  .week-progress-fill { height:100%; background:var(--orange); transition:width 0.4s; border-radius:2px; }
+  .reset-btn { background:none; border:1px solid var(--gray3); color:var(--muted); font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; padding:8px 14px; cursor:pointer; text-transform:uppercase; transition:all 0.15s; }
+  .reset-btn:hover { border-color:var(--muted); color:var(--white); }
+
+  .days-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; margin-bottom:24px; }
+  .day-cell { background:var(--gray2); padding:16px 8px; text-align:center; cursor:pointer; transition:all 0.15s; user-select:none; border-top:2px solid transparent; }
+  .day-cell:hover:not(.rest-day) { background:var(--gray3); }
+  .day-cell.done { background:rgba(255,92,0,0.15); border-top-color:var(--orange); }
+  .day-cell.rest-day { opacity:0.4; cursor:default; }
+  .day-cell-name { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+  .day-cell.done .day-cell-name { color:var(--orange); }
+  .day-cell-type { font-size:10px; font-weight:500; color:var(--white); line-height:1.3; }
+  .day-cell-check { font-size:16px; margin-top:8px; opacity:0; transition:opacity 0.2s; color:var(--orange); }
+  .day-cell.done .day-cell-check { opacity:1; }
+
+  .tracker-summary { display:flex; gap:3px; flex-wrap:wrap; }
+  .summary-stat { background:var(--gray2); padding:20px 24px; flex:1; min-width:120px; }
+  .summary-val { font-family:'Bebas Neue',sans-serif; font-size:40px; color:var(--orange); line-height:1; }
+  .summary-lbl { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-top:4px; }
+
+  /* ── WEIGHTS ── */
+  .weights-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+  .weight-card { background:var(--gray); padding:24px; }
+  .weight-muscle { font-family:'Space Mono',monospace; font-size:9px; color:var(--orange); letter-spacing:3px; text-transform:uppercase; margin-bottom:6px; }
+  .weight-exercise { font-size:13px; font-weight:600; color:var(--white); margin-bottom:16px; line-height:1.3; }
+  .weight-input-row { display:flex; align-items:center; gap:8px; }
+  .weight-input { background:var(--gray2); border:1px solid var(--gray3); color:var(--white); font-family:'Bebas Neue',sans-serif; font-size:36px; width:100px; padding:6px 10px; text-align:center; outline:none; transition:border 0.15s; -moz-appearance:textfield; }
+  .weight-input::-webkit-outer-spin-button,.weight-input::-webkit-inner-spin-button { -webkit-appearance:none; }
+  .weight-input:focus { border-color:var(--orange); }
+  .weight-unit { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); }
+  .weight-pr { font-family:'Space Mono',monospace; font-size:10px; color:var(--orange); margin-top:10px; opacity:0; transition:opacity 0.3s; }
+  .weight-pr.show { opacity:1; }
+  .weight-start { font-family:'Space Mono',monospace; font-size:9px; color:var(--muted); margin-top:4px; }
+
+  /* SCHEDULE */
+  .schedule-grid { display:grid; gap:3px; }
+  .day-row { display:grid; grid-template-columns:130px 1fr; gap:3px; }
+  .day-name { background:var(--gray2); padding:16px 20px; font-family:'Space Mono',monospace; font-size:12px; letter-spacing:1px; display:flex; align-items:center; color:var(--muted); }
+  .day-content { background:var(--gray2); padding:16px 24px; display:flex; align-items:center; font-size:14px; font-weight:500; flex-wrap:wrap; gap:8px; }
+  .day-row.active .day-name { background:var(--orange); color:var(--black); font-weight:700; }
+  .day-row.active .day-content { background:rgba(255,92,0,0.1); border-left:2px solid var(--orange); }
+  .day-row.rest .day-content { color:var(--muted); font-style:italic; }
+  .day-tag { display:inline-block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; padding:3px 8px; border-radius:2px; }
+  .tag-chest { background:rgba(255,92,0,0.2); color:var(--orange); }
+  .tag-arms  { background:rgba(255,180,50,0.2); color:#ffb432; }
+  .tag-back  { background:rgba(100,149,237,0.2); color:cornflowerblue; }
+  .tag-legs  { background:rgba(80,200,80,0.2); color:#6dbb6d; }
+
+  /* WORKOUTS */
+  .workout-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; margin-bottom:3px; }
+  .workout-card { background:var(--gray); padding:32px; }
+  .workout-card.full { grid-column:1/-1; }
+  .workout-day-label { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px; }
+  .chest-color { color:var(--orange); }
+  .arms-color  { color:#ffb432; }
+  .back-color  { color:cornflowerblue; }
+  .legs-color  { color:#6dbb6d; }
+  .workout-title { font-family:'Bebas Neue',sans-serif; font-size:32px; margin-bottom:4px; }
+  .workout-focus { font-size:12px; color:var(--muted); font-style:italic; margin-bottom:20px; }
+  .exercise-list { list-style:none; }
+  .exercise-list li { display:flex; justify-content:space-between; align-items:flex-start; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.05); color:#c0b9aa; font-size:13px; gap:8px; }
+  .exercise-list li:last-child { border-bottom:none; }
+  .exercise-name { flex:1; }
+  .exercise-sets { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); white-space:nowrap; }
+  .badge { display:inline-block; background:rgba(255,92,0,0.18); color:var(--orange); font-family:'Space Mono',monospace; font-size:8px; letter-spacing:1px; padding:2px 5px; border-radius:1px; margin-left:6px; vertical-align:middle; }
+
+  /* TIMELINE */
+  .timeline { position:relative; padding-left:40px; }
+  .timeline::before { content:''; position:absolute; left:8px; top:8px; bottom:8px; width:2px; background:linear-gradient(to bottom,var(--orange),transparent); }
+  .timeline-item { position:relative; margin-bottom:32px; }
+  .timeline-item::before { content:''; position:absolute; left:-36px; top:6px; width:10px; height:10px; border-radius:50%; background:var(--orange); border:2px solid var(--black); }
+  .timeline-week { font-family:'Space Mono',monospace; font-size:10px; color:var(--orange); letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
+  .timeline-desc { color:var(--text); font-size:14px; font-weight:300; }
+
+  /* DIET */
+  .meal-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+  .meal-card { background:var(--gray); padding:28px; }
+  .meal-time { font-family:'Space Mono',monospace; font-size:10px; color:var(--orange); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; }
+  .meal-name { font-family:'Bebas Neue',sans-serif; font-size:22px; margin-bottom:12px; }
+  .meal-protein { display:inline-block; background:rgba(255,92,0,0.15); color:var(--orange); font-family:'Space Mono',monospace; font-size:11px; padding:4px 10px; margin-bottom:12px; }
+  .meal-items { list-style:none; }
+  .meal-items li { color:#999; font-size:13px; padding:4px 0; border-bottom:1px solid rgba(255,255,255,0.04); font-weight:300; }
+
+  /* RULES */
+  .rules-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
+  .rule-card { background:var(--gray); padding:32px; }
+  .rule-number { font-family:'Bebas Neue',sans-serif; font-size:72px; line-height:1; color:rgba(255,92,0,0.1); margin-bottom:8px; }
+  .rule-title { font-family:'Bebas Neue',sans-serif; font-size:24px; margin-bottom:10px; }
+  .rule-body { color:#999; font-size:13px; font-weight:300; line-height:1.7; }
+
+  /* OUTCOME */
+  .outcome-section { background:var(--gray); padding:60px; }
+  .outcome-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:40px; margin-top:40px; }
+  .outcome-val { font-family:'Bebas Neue',sans-serif; font-size:52px; color:var(--orange); line-height:1; }
+  .outcome-label { font-size:12px; color:var(--muted); margin-top:6px; font-weight:300; line-height:1.5; }
+
+  /* FOOTER */
+  .footer { padding:60px; text-align:center; }
+  .footer-title { font-family:'Bebas Neue',sans-serif; font-size:64px; letter-spacing:4px; margin-bottom:16px; }
+  .footer-title span { color:var(--orange); }
+  .footer p { color:var(--muted); font-size:13px; }
+
+  @media(max-width:700px){
+    nav { padding:0 16px; }
+    .nav-links { gap:12px; }
+    .nav-links a { font-size:9px; }
+    .hero { padding:80px 24px 60px; }
+    .container { padding:0 20px; }
+    .workout-grid,.rules-grid { grid-template-columns:1fr; }
+    .meal-grid { grid-template-columns:1fr; }
+    .weights-grid { grid-template-columns:1fr 1fr; }
+    .outcome-grid { grid-template-columns:1fr 1fr; }
+    .outcome-section { padding:32px 20px; }
+    .footer { padding:40px 20px; }
+    .tracker-wrap { padding:24px 16px; }
+    .day-cell { padding:10px 4px; }
+    .day-cell-type { font-size:8px; }
+    .day-row { grid-template-columns:90px 1fr; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ════ SETUP ════ -->
-<div id="s-setup" class="screen active">
-  <div style="text-align:center;margin-bottom:28px">
-    <div class="logo">DJ CLAUDE</div>
-    <div style="font-family:'Orbitron',monospace;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.26);margin-top:5px">AI DJ · REAL WAVEFORM ANALYSIS · ZERO SILENCE</div>
+<nav>
+  <div class="nav-logo">BUILD DIFFERENT</div>
+  <div class="nav-links">
+    <a href="#tracker">Tracker</a>
+    <a href="#weights">Weights</a>
+    <a href="#split">Split</a>
+    <a href="#workouts">Workouts</a>
+    <a href="#fuel">Fuel</a>
   </div>
-  <div class="card" style="max-width:540px;width:100%">
-    <p style="font-size:12px;color:var(--td);line-height:1.9;margin-bottom:18px">
-      Real Web Audio API frequency analysis. Detects actual beats, bass drops, and outros from the live audio — not guessing. Crossfades sync to detected beats.
-    </p>
-    <div class="step-row">
-      <div class="badge">1</div>
-      <div style="flex:1">
-        <div style="font-size:13px;color:var(--t);margin-bottom:8px">YouTube playlist URL</div>
-        <input class="inp" id="pl-url" placeholder="https://youtube.com/playlist?list=PL..." />
-      </div>
-    </div>
-    <div class="step-row">
-      <div class="badge">2</div>
-      <div style="flex:1">
-        <div style="font-size:13px;color:var(--t);margin-bottom:4px">Cut aggression</div>
-        <div style="display:flex;gap:10px;margin-top:8px">
-          <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--td);cursor:pointer"><input type="radio" name="cut" value="chill" style="accent-color:var(--cyan)"> Chill (2–3 min)</label>
-          <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--td);cursor:pointer"><input type="radio" name="cut" value="dj" checked style="accent-color:var(--pink)"> DJ (1–2 min)</label>
-          <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--td);cursor:pointer"><input type="radio" name="cut" value="hype" style="accent-color:var(--orange)"> Hype Beast (30–75s)</label>
-        </div>
-      </div>
-    </div>
-    <div class="step-row">
-      <div class="badge">3</div>
-      <div style="flex:1">
-        <div style="font-size:13px;color:var(--t);margin-bottom:4px">Transition style</div>
-        <div style="display:flex;gap:10px;margin-top:8px">
-          <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--td);cursor:pointer"><input type="radio" name="txs" value="pump" checked style="accent-color:var(--pink)"> Beat Pump</label>
-          <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--td);cursor:pointer"><input type="radio" name="txs" value="smooth" style="accent-color:var(--cyan)"> Smooth</label>
-          <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--td);cursor:pointer"><input type="radio" name="txs" value="cut" style="accent-color:var(--orange)"> Hard Cut</label>
-        </div>
-      </div>
-    </div>
-    <div class="step-row">
-      <div class="badge">4</div>
-      <div style="flex:1">
-        <div style="font-size:13px;color:var(--t);margin-bottom:8px">AI DJ commentary <span style="font-size:10px;color:var(--td)">(optional)</span></div>
-        <input class="inp" id="ant-key" placeholder="sk-ant-api..." />
-        <div style="font-size:10px;color:rgba(255,255,255,.22);margin-top:5px"><a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></div>
-      </div>
-    </div>
-    <button class="btn btn-pink" style="width:100%;padding:16px;font-size:13px;margin-top:8px" onclick="init()">🎧 FIRE UP THE SET</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-tag">// Summer Training Program 2025 — Chest & Arms Focus</div>
+  <h1>BUILD<span>DIFFERENT.</span></h1>
+  <p class="hero-sub">Chest. Arms. Full body transformation. 5 days a week. 12 weeks. Track every session, every pound, all summer.</p>
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-val">147</span><span class="stat-label">Starting lbs</span></div>
+    <div class="stat"><span class="stat-val">5</span><span class="stat-label">Days / week</span></div>
+    <div class="stat"><span class="stat-val">150g</span><span class="stat-label">Protein / day</span></div>
+    <div class="stat"><span class="stat-val">12</span><span class="stat-label">Weeks</span></div>
   </div>
 </div>
 
-<!-- ════ DJ SCREEN ════ -->
-<div id="s-dj" class="screen">
-  <div style="text-align:center;margin-bottom:12px">
-    <div class="logo" style="font-size:19px;letter-spacing:5px">DJ CLAUDE</div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:5px">
-      <div id="cut-badge" style="font-family:'Orbitron',monospace;font-size:8px;letter-spacing:1.5px;padding:2px 9px;border-radius:10px;background:rgba(255,45,135,.12);border:1px solid rgba(255,45,135,.3);color:var(--pink)">DJ MODE</div>
-      <div id="status-pill" class="pill" style="background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.25);color:var(--cyan)"><div class="pill-dot" style="background:var(--cyan)"></div><span>READY</span></div>
-      <button id="wav-btn" onclick="enableAudio()" style="font-family:'Orbitron',monospace;font-size:8px;font-weight:700;letter-spacing:1.5px;padding:3px 10px;border-radius:10px;background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.35);color:var(--green);cursor:pointer;transition:all .2s">◎ ENABLE WAVEFORM ANALYSIS</button>
-    </div>
-  </div>
+<!-- TRACKER -->
+<section id="tracker" style="background:var(--gray);">
+  <div class="container">
+    <div class="section-label">// 01 — Progress Tracker</div>
+    <h2>YOUR SUMMER</h2>
 
-  <div class="dj-grid">
+    <div class="tracker-wrap">
+      <div class="tracker-header">
+        <div>
+          <div class="tracker-title">WEEK <span id="currentWeekDisplay">1</span> OF 12</div>
+          <div class="tracker-sub">// tap a training day to mark it done</div>
+        </div>
+        <button class="reset-btn" onclick="resetWeek()">Reset Week</button>
+      </div>
 
-    <!-- Col 1: Now Playing -->
-    <div class="panel" style="display:flex;flex-direction:column">
-      <div class="ptitle">NOW PLAYING</div>
-      <div id="yt-stage">
-        <div id="layer-a" class="yt-layer" style="opacity:1;z-index:2"><div id="yt-a"></div></div>
-        <div id="layer-b" class="yt-layer" style="opacity:0;z-index:1"><div id="yt-b"></div></div>
-        <div id="stage-pulse"></div>
-        <div id="beat-flash"></div>
-        <div id="hype-bar"><div id="hype-range"></div><div id="hype-head"></div></div>
-        <div id="tx-strip"><div id="tx-fill"></div></div>
+      <div class="week-nav">
+        <button class="week-btn" onclick="changeWeek(-1)">← PREV</button>
+        <div class="week-label" id="weekLabel">WEEK 1</div>
+        <div class="week-progress"><div class="week-progress-fill" id="weekFill" style="width:0%"></div></div>
+        <button class="week-btn" onclick="changeWeek(1)">NEXT →</button>
       </div>
-      <canvas id="waveform-canvas" height="44"></canvas>
-      <div id="energy-meter"><div id="energy-fill"></div></div>
-      <div id="outro-warn" class="pulse-anim">⚠ OUTRO DETECTED — MIXING NEXT TRACK</div>
-      <div id="tx-badge" style="display:none;margin-bottom:6px"><span id="tx-badge-txt" class="pill pulse-anim" style="font-size:8px;padding:3px 10px"></span></div>
-      <div style="margin-bottom:8px;flex:1;min-height:0">
-        <div id="tr-title" class="orb" style="font-size:12px;font-weight:700;color:#fff;line-height:1.3;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Press play to start</div>
-        <div id="tr-artist" style="font-size:10px;color:var(--td)">---</div>
-        <div style="display:flex;align-items:center;gap:8px;margin-top:3px">
-          <div id="tr-nrg" style="font-size:9px;color:var(--pink)"></div>
-          <div id="beat-dot" style="display:none;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);transition:transform .05s,opacity .05s"></div>
-          <div id="beat-bpm" style="display:none;font-size:8px;color:var(--green);font-family:'Orbitron',monospace;letter-spacing:1px"></div>
-        </div>
-      </div>
-      <div style="margin-bottom:9px">
-        <div style="background:rgba(255,255,255,.1);border-radius:2px;height:3px;margin-bottom:4px;overflow:hidden">
-          <div id="prog" style="height:100%;border-radius:2px;background:var(--pink);width:0%;transition:width .9s linear;box-shadow:0 0 8px var(--pink)"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,.3)">
-          <span id="t-cur">0:00</span><span id="t-window" style="color:rgba(255,255,255,.2)">window</span><span id="t-end">0:00</span>
-        </div>
-      </div>
-      <div style="display:flex;justify-content:center;gap:12px;margin-bottom:6px;align-items:center">
-        <button class="play-btn" id="play-btn" onclick="togglePlay()">▶</button>
-        <div style="font-size:9px;color:rgba(255,255,255,.25);line-height:1.7">
-          Vol: <span id="vol-num">85</span>%<br>
-          <input type="range" id="vol-slider" min="0" max="100" value="85" oninput="setVol(this.value)" style="width:70px;accent-color:var(--cyan);cursor:pointer">
-        </div>
-      </div>
-    </div>
 
-    <!-- Col 2: Energy + Controls -->
-    <div style="display:flex;flex-direction:column;gap:11px">
-      <div class="panel">
-        <div class="ptitle">ENERGY LEVEL</div>
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-          <div id="e-num" class="orb" style="font-size:40px;font-weight:900;color:var(--orange);text-shadow:0 0 18px var(--orange);min-width:50px;line-height:1">7</div>
-          <div style="flex:1">
-            <div id="e-lbl" style="font-size:9px;color:var(--td);margin-bottom:5px;letter-spacing:1px">HIGH ENERGY</div>
-            <div style="background:rgba(255,255,255,.1);border-radius:4px;height:8px;overflow:hidden">
-              <div id="e-bar" style="height:100%;border-radius:4px;background:linear-gradient(to right,var(--purple),var(--orange));width:70%;transition:width .5s;box-shadow:0 0 10px var(--orange)"></div>
-            </div>
-          </div>
-        </div>
-        <div id="analysis-panel">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;font-size:9px;font-family:'Orbitron',monospace;letter-spacing:.8px">
-            <div style="color:rgba(255,255,255,.28)">AUDIO RMS</div><div id="rms-val" style="color:var(--green);text-align:right">--</div>
-            <div style="color:rgba(255,255,255,.28)">BASS</div><div id="bass-val" style="color:var(--green);text-align:right">--</div>
-            <div style="color:rgba(255,255,255,.28)">BPM</div><div id="bpm-val" style="color:var(--green);text-align:right">--</div>
-            <div style="color:rgba(255,255,255,.28)">OUTRO RISK</div><div id="outro-val" style="color:var(--green);text-align:right">--</div>
-          </div>
-          <div id="wav-status" style="font-family:'Orbitron',monospace;font-size:8px;color:rgba(0,255,136,.35);letter-spacing:1px;margin-top:8px;text-align:center">◎ WAVEFORM OFFLINE — USING HEURISTICS</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:7px;font-size:9px;color:rgba(255,255,255,.28);font-family:'Orbitron',monospace;letter-spacing:.8px">
-          <div id="preload-dot" style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);transition:background .4s"></div>
-          <span id="preload-lbl">Next: idle</span>
-        </div>
-      </div>
-      <div class="panel" style="flex:1">
-        <div class="ptitle">VIBE CONTROLS</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
-          <button class="vbtn" style="background:rgba(139,92,246,.16);color:#a78bfa;border:1px solid rgba(139,92,246,.38)" onclick="changeEnergy(2)">🌙<br>Wind Down</button>
-          <button class="vbtn" style="background:rgba(0,245,255,.09);color:var(--cyan);border:1px solid rgba(0,245,255,.32)" onclick="changeEnergy(Math.max(1,S.energy-2))">▼<br>Take It Down</button>
-          <button class="vbtn" style="background:rgba(255,140,0,.11);color:#ffb347;border:1px solid rgba(255,140,0,.32)" onclick="changeEnergy(Math.min(10,S.energy+2))">▲<br>Turn It Up</button>
-          <button class="vbtn" style="background:rgba(255,45,135,.16);color:var(--pink);border:1px solid rgba(255,45,135,.38)" onclick="changeEnergy(10)">🔥<br>Drop It</button>
-        </div>
-        <button class="skip-btn" id="skip-btn" onclick="handleSkip()">⚡ SKIP NOW</button>
-        <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06)">
-          <div class="ptitle" style="margin-bottom:7px">TRANSITION</div>
-          <div style="display:flex;gap:6px;margin-bottom:8px">
-            <button onclick="setTx('pump')"   id="ts-pump"   class="sm-btn" style="flex:1;font-size:8px">PUMP</button>
-            <button onclick="setTx('smooth')" id="ts-smooth" class="sm-btn" style="flex:1;font-size:8px">SMOOTH</button>
-            <button onclick="setTx('cut')"    id="ts-cut"    class="sm-btn" style="flex:1;font-size:8px">CUT</button>
-          </div>
-          <div class="ptitle" style="margin-bottom:7px">CUT MODE</div>
-          <div style="display:flex;gap:6px">
-            <button onclick="setCut('chill')" id="cm-chill" class="sm-btn" style="flex:1;font-size:8px">CHILL</button>
-            <button onclick="setCut('dj')"    id="cm-dj"    class="sm-btn" style="flex:1;font-size:8px">DJ</button>
-            <button onclick="setCut('hype')"  id="cm-hype"  class="sm-btn" style="flex:1;font-size:8px">BEAST</button>
-          </div>
-        </div>
-      </div>
-    </div>
+      <div class="days-grid" id="daysGrid"></div>
 
-    <!-- Col 3: Queue + Requests -->
-    <div class="panel" style="display:flex;flex-direction:column">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <div class="ptitle" style="margin:0">UP NEXT</div>
-        <button onclick="toggleAdd()" style="background:none;border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.42);border-radius:4px;cursor:pointer;font-size:9px;padding:3px 8px;font-family:'Orbitron',monospace;letter-spacing:1px">+ ADD</button>
-      </div>
-      <div id="add-panel" style="display:none;margin-bottom:10px">
-        <input class="inp inp-sm" id="add-inp" placeholder="YouTube video URL..." onkeydown="if(event.key==='Enter')addSong()" style="margin-bottom:6px" />
-        <div style="display:flex;gap:6px">
-          <button class="sm-btn" style="flex:1" onclick="addSong()">ADD TO QUEUE</button>
-          <a href="https://youtube.com" target="_blank"><button class="sm-btn" style="background:rgba(255,45,135,.1);border-color:rgba(255,45,135,.3);color:var(--pink)">YT ↗</button></a>
+      <div class="tracker-summary">
+        <div class="summary-stat">
+          <div class="summary-val" id="weekDone">0/5</div>
+          <div class="summary-lbl">This week</div>
         </div>
-      </div>
-      <div id="q-list" style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:4px;min-height:0;max-height:230px;margin-bottom:12px">
-        <div style="font-size:10px;color:rgba(255,255,255,.22);padding:8px 0">Loading playlist...</div>
-      </div>
-      <div>
-        <div class="ptitle">REQUEST A SONG</div>
-        <div style="font-size:10px;color:rgba(255,255,255,.24);margin-bottom:7px">Paste YouTube URL — bumps to front</div>
-        <div style="display:flex;gap:6px">
-          <input class="inp inp-sm" id="req-inp" placeholder="youtube.com/watch?v=..." onkeydown="if(event.key==='Enter')handleRequest()" style="flex:1" />
-          <button class="sm-btn" onclick="handleRequest()">SEND</button>
+        <div class="summary-stat">
+          <div class="summary-val" id="totalDone">0</div>
+          <div class="summary-lbl">Total sessions</div>
         </div>
-        <div style="text-align:right;margin-top:5px"><a href="https://youtube.com" target="_blank" style="font-size:9px;color:rgba(255,255,255,.22)">Find on YouTube ↗</a></div>
+        <div class="summary-stat">
+          <div class="summary-val" id="streakCount">0</div>
+          <div class="summary-lbl">Week streak</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-val" id="pctDone">0%</div>
+          <div class="summary-lbl">Summer done</div>
+        </div>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="panel">
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-      <div class="ptitle" style="margin:0">DJ LOG</div>
-      <div id="ai-dot" style="display:none;width:6px;height:6px;border-radius:50%;background:var(--cyan)" class="pulse-anim"></div>
-      <span id="ai-lbl" style="display:none;font-family:'Orbitron',monospace;font-size:8px;color:var(--cyan);letter-spacing:2px" class="pulse-anim">CLAUDE THINKING...</span>
+<!-- MAX WEIGHTS -->
+<section id="weights">
+  <div class="container">
+    <div class="section-label">// 02 — Max Weight Tracker</div>
+    <h2>YOUR NUMBERS</h2>
+    <p style="margin-bottom:32px;">Log your working weight after each session. When you can hit 12 clean reps, <strong>go up next time.</strong> Your PR is tracked automatically — watch it climb all summer.</p>
+    <div class="weights-grid" id="weightsGrid"></div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="split">
+  <div class="container">
+    <div class="section-label">// 03 — Weekly Schedule</div>
+    <h2>THE SPLIT</h2>
+    <p style="margin-bottom:32px;">Chest hits <strong>twice</strong> (Monday heavy, Friday pump). Arms hit <strong>twice</strong> with intentional fatigue management — Friday biceps are kept light so Saturday's dedicated arm day is fully fresh. Shoulders are joint-safe, side and rear delt only.</p>
+    <div class="schedule-grid">
+      <div class="day-row active">
+        <div class="day-name">Monday</div>
+        <div class="day-content">Chest & Triceps — Heavy Pressing Focus <span class="day-tag tag-chest">Chest</span></div>
+      </div>
+      <div class="day-row active">
+        <div class="day-name">Tuesday</div>
+        <div class="day-content">Back & Biceps — Pulling Focus <span class="day-tag tag-back">Back</span></div>
+      </div>
+      <div class="day-row rest">
+        <div class="day-name">Wednesday</div>
+        <div class="day-content">Rest & Recovery — walking, stretching, light mobility</div>
+      </div>
+      <div class="day-row active">
+        <div class="day-name">Thursday</div>
+        <div class="day-content">Legs & Shoulders — Side/Rear Delts Only, Joint Safe <span class="day-tag tag-legs">Legs</span></div>
+      </div>
+      <div class="day-row active">
+        <div class="day-name">Friday</div>
+        <div class="day-content">Chest & Biceps — Pump & Hypertrophy, Light Biceps <span class="day-tag tag-chest">Chest</span><span class="day-tag tag-arms">Arms</span></div>
+      </div>
+      <div class="day-row active">
+        <div class="day-name">Saturday</div>
+        <div class="day-content">Arm Day — Full Triceps & Biceps + Core <span class="day-tag tag-arms">Arms</span></div>
+      </div>
+      <div class="day-row rest">
+        <div class="day-name">Sunday</div>
+        <div class="day-content">Full Rest — sleep, eat, rebuild</div>
+      </div>
     </div>
-    <div id="dj-log" style="overflow-y:auto;max-height:80px;display:flex;flex-direction:column;gap:3px">
-      <div style="font-size:11px;color:rgba(255,255,255,.2);padding:4px 0;font-style:italic">Waveform analysis engine initializing...</div>
+    <p style="margin-top:24px; font-size:13px; color:var(--muted);">Friday biceps are intentionally 2–3 sets, isolation-only, so they're recovered and ready for Saturday. Saturday uses different angles and variations than Friday to hit the biceps fresh from a new stimulus.</p>
+  </div>
+</section>
+
+<!-- WORKOUTS -->
+<section id="workouts">
+  <div class="container">
+    <div class="section-label">// 04 — The Workouts</div>
+    <h2>SESSIONS</h2>
+    <p style="margin-bottom:32px;"><strong>Rule:</strong> 8–12 rep range. Hit 12 clean reps → go up next session. <span style="color:var(--orange);">★ priority</span> = never skip. <span style="color:#60aaff;">⚡ pump</span> = lighter, controlled, feel the muscle.</p>
+
+    <div class="workout-grid">
+
+      <!-- MONDAY -->
+      <div class="workout-card">
+        <div class="workout-day-label chest-color">Monday</div>
+        <div class="workout-title">CHEST & TRIS</div>
+        <div class="workout-focus">Primary chest day — heavy pressing, build the foundation</div>
+        <ul class="exercise-list">
+          <li><span class="exercise-name">DB Flat Bench Press <span class="badge">★</span></span><span class="exercise-sets">4 × 6–8</span></li>
+          <li><span class="exercise-name">Incline DB Press <span class="badge">★</span></span><span class="exercise-sets">4 × 8–10</span></li>
+          <li><span class="exercise-name">Cable Chest Fly</span><span class="exercise-sets">3 × 12–15</span></li>
+          <li><span class="exercise-name">Chest Dips (lean forward)</span><span class="exercise-sets">3 × max</span></li>
+          <li><span class="exercise-name">Skull Crushers <span class="badge">★</span></span><span class="exercise-sets">3 × 10–12</span></li>
+          <li><span class="exercise-name">Tricep Rope Pushdown</span><span class="exercise-sets">3 × 12</span></li>
+        </ul>
+      </div>
+
+      <!-- TUESDAY -->
+      <div class="workout-card">
+        <div class="workout-day-label back-color">Tuesday</div>
+        <div class="workout-title">BACK & BICEPS</div>
+        <div class="workout-focus">Wide back = broader silhouette — big compound focus</div>
+        <ul class="exercise-list">
+          <li><span class="exercise-name">Barbell Row <span class="badge">★</span></span><span class="exercise-sets">4 × 6–8</span></li>
+          <li><span class="exercise-name">Lat Pulldown <span class="badge">★</span></span><span class="exercise-sets">4 × 10–12</span></li>
+          <li><span class="exercise-name">Seated Cable Row</span><span class="exercise-sets">3 × 10–12</span></li>
+          <li><span class="exercise-name">Face Pulls</span><span class="exercise-sets">3 × 15</span></li>
+          <li><span class="exercise-name">DB Bicep Curl <span class="badge">★</span></span><span class="exercise-sets">3 × 10–12</span></li>
+          <li><span class="exercise-name">Incline DB Curl</span><span class="exercise-sets">3 × 12</span></li>
+        </ul>
+      </div>
+
+      <!-- THURSDAY -->
+      <div class="workout-card">
+        <div class="workout-day-label legs-color">Thursday</div>
+        <div class="workout-title">LEGS & SHOULDERS</div>
+        <div class="workout-focus">Leg maintenance + side/rear delt only — zero front delt, zero overhead pressing</div>
+        <ul class="exercise-list">
+          <li><span class="exercise-name">Back Squat <span class="badge">★</span></span><span class="exercise-sets">4 × 8–10</span></li>
+          <li><span class="exercise-name">Romanian Deadlift</span><span class="exercise-sets">3 × 10–12</span></li>
+          <li><span class="exercise-name">Leg Press</span><span class="exercise-sets">3 × 12</span></li>
+          <li><span class="exercise-name">Leg Curl (Machine)</span><span class="exercise-sets">3 × 12</span></li>
+          <li><span class="exercise-name">Calf Raises</span><span class="exercise-sets">3 × 15</span></li>
+          <li><span class="exercise-name">Cable Lateral Raises <span class="badge" style="background:rgba(80,200,80,0.2);color:#6dbb6d;">side delt</span></span><span class="exercise-sets">4 × 15</span></li>
+          <li><span class="exercise-name">Rear Delt Cable Fly <span class="badge" style="background:rgba(80,200,80,0.2);color:#6dbb6d;">rear delt</span></span><span class="exercise-sets">3 × 15</span></li>
+          <li><span class="exercise-name">Face Pulls <span class="badge" style="background:rgba(80,200,80,0.2);color:#6dbb6d;">rear delt</span></span><span class="exercise-sets">3 × 15</span></li>
+        </ul>
+      </div>
+
+      <!-- FRIDAY -->
+      <div class="workout-card">
+        <div class="workout-day-label chest-color">Friday</div>
+        <div class="workout-title">CHEST & BICEPS</div>
+        <div class="workout-focus">Pump & hypertrophy focus — biceps kept light to save Saturday</div>
+        <ul class="exercise-list">
+          <li><span class="exercise-name">Incline DB Press <span class="badge">★</span></span><span class="exercise-sets">4 × 10–12</span></li>
+          <li><span class="exercise-name">DB Flat Bench Press</span><span class="exercise-sets">3 × 12</span></li>
+          <li><span class="exercise-name">Cable Chest Fly <span class="badge" style="background:rgba(96,170,255,0.2);color:#60aaff;">⚡ pump</span></span><span class="exercise-sets">3 × 15</span></li>
+          <li><span class="exercise-name">Push-Ups (3s down, slow)</span><span class="exercise-sets">2 × max</span></li>
+          <li><span class="exercise-name" style="border-top:1px solid rgba(255,255,255,0.08);padding-top:10px;display:block;color:#60aaff;font-size:11px;font-style:italic;margin-bottom:-4px;">— Biceps: light isolation only, 2–3 sets —</span></li>
+          <li><span class="exercise-name">Cable Curl <span class="badge" style="background:rgba(96,170,255,0.2);color:#60aaff;">⚡ pump</span></span><span class="exercise-sets">2 × 15</span></li>
+          <li><span class="exercise-name">Concentration Curl <span class="badge" style="background:rgba(96,170,255,0.2);color:#60aaff;">⚡ pump</span></span><span class="exercise-sets">2 × 15</span></li>
+        </ul>
+      </div>
+
+      <!-- SATURDAY FULL -->
+      <div class="workout-card full">
+        <div class="workout-day-label arms-color">Saturday</div>
+        <div class="workout-title">ARM DAY + CORE</div>
+        <div class="workout-focus">Full dedicated arms — different angles than Friday, fresh stimulus, go hard</div>
+        <ul class="exercise-list" style="display:grid; grid-template-columns:1fr 1fr; gap:0 48px;">
+          <li><span class="exercise-name" style="color:#ffb432;font-size:11px;font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;">BICEPS</span><span class="exercise-sets" style="color:#ffb432;">—</span></li>
+          <li><span class="exercise-name" style="color:#ffb432;font-size:11px;font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;">TRICEPS</span><span class="exercise-sets" style="color:#ffb432;">—</span></li>
+          <li><span class="exercise-name">Barbell Curl <span class="badge">★</span></span><span class="exercise-sets">4 × 8–10</span></li>
+          <li><span class="exercise-name">Skull Crushers <span class="badge">★</span></span><span class="exercise-sets">4 × 10</span></li>
+          <li><span class="exercise-name">Hammer Curl <span class="badge" style="background:rgba(255,180,50,0.2);color:#ffb432;">diff angle</span></span><span class="exercise-sets">3 × 12</span></li>
+          <li><span class="exercise-name">Overhead Tricep Extension</span><span class="exercise-sets">3 × 12</span></li>
+          <li><span class="exercise-name">Preacher Curl <span class="badge" style="background:rgba(255,180,50,0.2);color:#ffb432;">diff angle</span></span><span class="exercise-sets">3 × 12</span></li>
+          <li><span class="exercise-name">Tricep Dips (upright)</span><span class="exercise-sets">3 × max</span></li>
+          <li><span class="exercise-name" style="color:#6dbb6d;font-size:11px;font-family:'Space Mono',monospace;letter-spacing:2px;text-transform:uppercase;">CORE</span><span class="exercise-sets" style="color:#6dbb6d;">—</span></li>
+          <li><span class="exercise-name">Deadlift (weekly strength)</span><span class="exercise-sets">4 × 5</span></li>
+          <li><span class="exercise-name">Plank</span><span class="exercise-sets">3 × 60s</span></li>
+          <li><span class="exercise-name">Ab Wheel / Cable Crunch</span><span class="exercise-sets">3 × 15</span></li>
+          <li><span class="exercise-name">Hanging Leg Raises</span><span class="exercise-sets">3 × 12</span></li>
+        </ul>
+      </div>
+
+    </div>
+    <p style="margin-top:20px; font-size:13px; color:var(--muted);">Friday bicep note: cable curls and concentration curls are pure isolation — lighter weight, full squeeze at the top, slow on the way down. The goal is blood flow and a pump, not fatigue. Saturday's barbell curl, hammer curl, and preacher curl hit completely different parts of the bicep and brachialis than Friday's movements.</p>
+  </div>
+</section>
+
+<!-- CREATINE -->
+<section>
+  <div class="container">
+    <div class="section-label">// 05 — Supplements</div>
+    <h2>CREATINE</h2>
+    <p><strong>5g every single day</strong> — training and rest days. Mix into post-workout shake. As a vegetarian your baseline creatine is naturally lower, meaning you'll likely respond better than most.</p>
+    <p style="margin-bottom:40px;">Minimum a gallon of water daily. More on training days. Non-negotiable.</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-week">Weeks 1–2</div>
+        <div class="timeline-desc">Saturating your muscle cells slowly. No noticeable effect yet — completely normal. Keep going.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Weeks 3–4</div>
+        <div class="timeline-desc">Starting to feel stronger. Muscles looking fuller. You'll gain 2–4 lbs — that's water in your muscle cells. Not fat. That's the creatine working.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 4+</div>
+        <div class="timeline-desc">Fully saturated. Extra reps on every set. Faster recovery between sets. Compounds across hundreds of sessions all summer.</div>
+      </div>
     </div>
   </div>
-  <div style="text-align:center;margin-top:8px;font-size:8px;color:rgba(255,255,255,.14);font-family:'Orbitron',monospace;letter-spacing:1px">
-    FFT BEAT DETECTION · OUTRO SENSING · BEAT-SYNCED CROSSFADES · ZERO SILENCE
+</section>
+
+<!-- DIET -->
+<section id="fuel">
+  <div class="container">
+    <div class="section-label">// 06 — Vegetarian Diet</div>
+    <h2>FUEL</h2>
+    <p style="margin-bottom:8px;">Target: <strong>150g protein/day.</strong> Eating out 1–2× a week is fine — it's less than 10% of your meals. Make the other 90% count.</p>
+    <p style="margin-bottom:40px;">Being vegetarian just means being intentional. Here's what a full day looks like hitting your target.</p>
+    <div class="meal-grid">
+      <div class="meal-card">
+        <div class="meal-time">Breakfast</div>
+        <div class="meal-name">MORNING STACK</div>
+        <div class="meal-protein">~38g protein</div>
+        <ul class="meal-items">
+          <li>Protein bar</li>
+          <li>3–4 eggs or Greek yogurt</li>
+          <li>Creatine in water or juice</li>
+        </ul>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">Post-Gym</div>
+        <div class="meal-name">SHAKE #1</div>
+        <div class="meal-protein">~25–50g protein</div>
+        <ul class="meal-items">
+          <li>1–2 scoops whey or plant protein</li>
+          <li>Within 1 hour of training</li>
+          <li>Most important shake of the day</li>
+        </ul>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">Work Snacks</div>
+        <div class="meal-name">ON THE GO</div>
+        <div class="meal-protein">~20–25g protein</div>
+        <ul class="meal-items">
+          <li>Nuts + Greek yogurt cup</li>
+          <li>String cheese / hard boiled eggs</li>
+          <li>Cottage cheese cup</li>
+        </ul>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">Afternoon</div>
+        <div class="meal-name">SHAKE #2</div>
+        <div class="meal-protein">~25g protein</div>
+        <ul class="meal-items">
+          <li>1 scoop protein powder</li>
+          <li>2 hours before dinner</li>
+        </ul>
+      </div>
+      <div class="meal-card">
+        <div class="meal-time">Dinner</div>
+        <div class="meal-name">BIG MEAL</div>
+        <div class="meal-protein">~40–50g protein</div>
+        <ul class="meal-items">
+          <li>Paneer, lentils, tofu, or eggs</li>
+          <li>Rice, chickpeas, or black beans</li>
+          <li>Build the plate around protein</li>
+        </ul>
+      </div>
+      <div class="meal-card" style="background:rgba(255,92,0,0.07);border:1px solid rgba(255,92,0,0.18);">
+        <div class="meal-time" style="color:var(--white);">Daily Total</div>
+        <div class="meal-name" style="color:var(--orange);">145–190G</div>
+        <div class="meal-protein" style="background:rgba(255,92,0,0.3);">protein target ✓</div>
+        <ul class="meal-items">
+          <li style="color:var(--white);">Slight caloric surplus</li>
+          <li style="color:var(--white);">Eat more, don't diet</li>
+          <li style="color:var(--white);">Never skip breakfast</li>
+        </ul>
+      </div>
+    </div>
   </div>
+</section>
+
+<!-- RULES -->
+<section>
+  <div class="container">
+    <div class="section-label">// 07 — Non-Negotiables</div>
+    <h2>THE RULES</h2>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-number">01</div>
+        <div class="rule-title">Sleep 8–9 Hours</div>
+        <p class="rule-body">Muscle is built while you sleep. Growth hormone peaks during deep sleep at 16. You are growing more efficiently right now than you ever will again. Don't waste it staying up late.</p>
+      </div>
+      <div class="rule-card">
+        <div class="rule-number">02</div>
+        <div class="rule-title">Form Before Weight</div>
+        <p class="rule-body">First 2–3 weeks, go lighter and feel the right muscles. A strict 25 lb curl is worth more than a sloppy 40. Bad form causes injuries that end your whole summer in one session.</p>
+      </div>
+      <div class="rule-card">
+        <div class="rule-number">03</div>
+        <div class="rule-title">Progressive Overload</div>
+        <p class="rule-body">Every session, try to do more than last time. One more rep, 5 more lbs. Update your numbers in the tracker. This single principle drives 90% of all muscle growth.</p>
+      </div>
+      <div class="rule-card">
+        <div class="rule-number">04</div>
+        <div class="rule-title">Pain vs Soreness</div>
+        <p class="rule-body">Soreness the day after = normal. Sharp pain during a lift, joint pain, pain that won't go away = stop immediately. One injury can kill your entire summer. Know the difference.</p>
+      </div>
+      <div class="rule-card">
+        <div class="rule-number">05</div>
+        <div class="rule-title">Don't Skip Legs</div>
+        <p class="rule-body">Legs are your biggest muscle group. Training them releases the most testosterone and growth hormone in your body. Skipping legs literally slows down your chest and arm gains.</p>
+      </div>
+      <div class="rule-card">
+        <div class="rule-number">06</div>
+        <div class="rule-title">Consistency Wins</div>
+        <p class="rule-body">You will have bad days and bad weeks. That's normal. What matters is what you do next. One bad week won't ruin your summer. Quitting after a bad week will.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOME -->
+<section style="border-bottom:none;">
+  <div class="container">
+    <div class="section-label">// 08 — What To Expect</div>
+    <h2>THE OUTCOME</h2>
+    <div class="outcome-section">
+      <p style="color:var(--text); max-width:580px;">Lock in training, protein, creatine, and sleep — here's what you're walking back into school with.</p>
+      <div class="outcome-grid">
+        <div class="outcome-item"><div class="outcome-val">+15lbs</div><div class="outcome-label">realistic muscle gain by end of summer</div></div>
+        <div class="outcome-item"><div class="outcome-val">+15lbs</div><div class="outcome-label">on your curl — 25s to 35–40s by week 12</div></div>
+        <div class="outcome-item"><div class="outcome-val">Wk 4</div><div class="outcome-label">when you start seeing visible chest & arm changes</div></div>
+        <div class="outcome-item"><div class="outcome-val">Wk 8</div><div class="outcome-label">when other people start noticing</div></div>
+      </div>
+      <p style="margin-top:32px; color:#555; font-size:13px;">Chest fills out and pushes through shirts. Arms get visibly bigger. Back widens your entire silhouette. Clothes will fit completely differently. The jump from "never really lifted" to "trained seriously all summer" is one of the biggest visible changes you'll ever make — and you're making it at 16 when your body responds fastest.</p>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <div class="footer-title">GO GET <span>IT.</span></div>
+  <p>Chest×2 · Arms×2 · Back · Legs & Shoulders · Core · 150g protein · 5g creatine · 8–9hrs sleep</p>
+  <p style="margin-top:8px; color:#2a2a2a; font-size:12px;">Summer 2025 — built different</p>
 </div>
 
-<div id="toast"></div>
-<script src="https://www.youtube.com/iframe_api"></script>
 <script>
-const S={
-  tracks:[],queue:[],played:[],current:null,currentWindow:null,
-  energy:7,volume:85,txStyle:'pump',cutMode:'dj',
-  pA:null,pB:null,aReady:false,bReady:false,active:'A',
-  preloaded:false,preloadTrack:null,preloadWindow:null,
-  inTransition:false,txPending:false,playing:false,addVisible:false,
-  anthropicKey:'',ytApiReady:false,ytCbs:[],
-  pollTimer:null,txTimer:null,
-  // Audio analysis
-  audioCtx:null,analyser:null,freqData:null,timeData:null,audioReady:false,
-  rmsHistory:[],bassHistory:[],beatTimes:[],lastBeatTime:0,estimatedBPM:0,
-  outroVotes:0,outroTriggered:false,beatWaiting:false,beatWaitCb:null,
-  waveCtx:null,
-};
+// ── CONFIG ──────────────────────────────────────────────────────────────────
+const WEEK_DAYS = [
+  { name:'MON', type:'Chest & Tris',    rest:false },
+  { name:'TUE', type:'Back & Bis',      rest:false },
+  { name:'WED', type:'Rest',            rest:true  },
+  { name:'THU', type:'Legs & Delts',    rest:false },
+  { name:'FRI', type:'Chest & Bis',     rest:false },
+  { name:'SAT', type:'Arm Day + Core',  rest:false },
+  { name:'SUN', type:'Full Rest',       rest:true  },
+];
 
-// ── WAVEFORM ANALYSIS ──────────────────────────────────────────────
-async function enableAudio(){
-  const btn=document.getElementById('wav-btn');
-  btn.textContent='◎ REQUESTING...';
-  try{
-    // Capture tab audio via getDisplayMedia
-    // User must select "This Tab" (Chrome) or "Browser Tab" in the share dialog
-    const stream=await navigator.mediaDevices.getDisplayMedia({
-      video:{width:1,height:1,frameRate:1},
-      audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false}
-    });
-    const audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-    const src=audioCtx.createMediaStreamSource(stream);
-    const analyser=audioCtx.createAnalyser();
-    analyser.fftSize=2048;
-    analyser.smoothingTimeConstant=0.82;
-    analyser.minDecibels=-90;
-    analyser.maxDecibels=-10;
-    src.connect(analyser);
-    // NOTE: NOT connecting to audioCtx.destination — avoids doubling the audio
-    S.audioCtx=audioCtx;S.analyser=analyser;
-    S.freqData=new Uint8Array(analyser.frequencyBinCount);
-    S.timeData=new Uint8Array(analyser.frequencyBinCount);
-    S.audioReady=true;
-    S.waveCtx=document.getElementById('waveform-canvas').getContext('2d');
-    stream.getVideoTracks().forEach(t=>t.stop()); // drop the video track, keep audio
-    btn.textContent='◉ WAVEFORM ACTIVE';
-    btn.style.background='rgba(0,255,136,.2)';btn.style.borderColor='rgba(0,255,136,.5)';
-    document.getElementById('wav-status').textContent='◉ WAVEFORM ANALYSIS ACTIVE — BEAT SYNC ON';
-    document.getElementById('wav-status').style.color='var(--green)';
-    document.getElementById('beat-dot').style.display='block';
-    document.getElementById('beat-bpm').style.display='block';
-    log('🎛 Waveform analysis LIVE — real beat detection + outro sensing enabled','hype');
-    runAnalysisLoop();
-  }catch(e){
-    btn.textContent='◎ ENABLE WAVEFORM ANALYSIS';
-    log('⚠ Audio capture unavailable — using smart heuristics','info');
-  }
-}
+const EXERCISES = [
+  // CHEST
+  { id:'db_bench',       name:'DB Flat Bench Press',    muscle:'CHEST',     start:'' },
+  { id:'incline_db',     name:'Incline DB Press',        muscle:'CHEST',     start:'' },
+  { id:'cable_fly',      name:'Cable Chest Fly',         muscle:'CHEST',     start:'' },
+  // BICEPS
+  { id:'db_curl',        name:'DB Bicep Curl',           muscle:'BICEPS',    start:'25' },
+  { id:'incline_curl',   name:'Incline DB Curl',         muscle:'BICEPS',    start:'' },
+  { id:'barbell_curl',   name:'Barbell Curl',            muscle:'BICEPS',    start:'' },
+  { id:'hammer_curl',    name:'Hammer Curl',             muscle:'BICEPS',    start:'' },
+  { id:'preacher_curl',  name:'Preacher Curl',           muscle:'BICEPS',    start:'' },
+  { id:'cable_curl',     name:'Cable Curl (light/pump)', muscle:'BICEPS',    start:'' },
+  // TRICEPS
+  { id:'skull_crush',    name:'Skull Crushers',          muscle:'TRICEPS',   start:'' },
+  { id:'tri_push',       name:'Tricep Rope Pushdown',    muscle:'TRICEPS',   start:'' },
+  { id:'tri_overhead',   name:'Overhead Tricep Ext.',    muscle:'TRICEPS',   start:'' },
+  // BACK
+  { id:'barbell_row',    name:'Barbell Row',             muscle:'BACK',      start:'' },
+  { id:'lat_pull',       name:'Lat Pulldown',            muscle:'BACK',      start:'' },
+  { id:'cable_row',      name:'Seated Cable Row',        muscle:'BACK',      start:'' },
+  // SHOULDERS (side/rear only)
+  { id:'lat_raise',      name:'Cable Lateral Raise',     muscle:'SIDE DELT', start:'' },
+  { id:'rear_fly',       name:'Rear Delt Cable Fly',     muscle:'REAR DELT', start:'' },
+  { id:'face_pull',      name:'Face Pulls',              muscle:'REAR DELT', start:'' },
+  // LEGS
+  { id:'squat',          name:'Back Squat',              muscle:'LEGS',      start:'' },
+  { id:'rdl',            name:'Romanian Deadlift',       muscle:'LEGS',      start:'' },
+  { id:'leg_press',      name:'Leg Press',               muscle:'LEGS',      start:'' },
+  // FULL BODY
+  { id:'deadlift',       name:'Deadlift',                muscle:'FULL BODY', start:'' },
+];
 
-function runAnalysisLoop(){
-  const SR=S.audioCtx.sampleRate, BS=SR/S.analyser.fftSize;
-  const bassStart=Math.floor(40/BS),bassEnd=Math.floor(250/BS);
-  function loop(){
-    if(!S.audioReady){return;}
-    requestAnimationFrame(loop);
-    S.analyser.getByteFrequencyData(S.freqData);
-    S.analyser.getByteTimeDomainData(S.timeData);
-    // RMS
-    let sq=0;
-    for(let i=0;i<S.timeData.length;i++){const v=(S.timeData[i]-128)/128;sq+=v*v;}
-    const rms=Math.sqrt(sq/S.timeData.length);
-    // Bass energy
-    let bSum=0;
-    for(let i=bassStart;i<bassEnd;i++) bSum+=S.freqData[i];
-    const bass=bSum/((bassEnd-bassStart)*255);
-    // Rolling history
-    S.rmsHistory.push(rms); if(S.rmsHistory.length>180) S.rmsHistory.shift();
-    S.bassHistory.push(bass); if(S.bassHistory.length>60) S.bassHistory.shift();
-    const avgBass=avg(S.bassHistory.slice(-30));
-    // Beat detection
-    const beat=detectBeat(bass,avgBass);
-    if(beat) onBeat(bass);
-    const bpm=calcBPM();
-    // Outro detection
-    checkOutro(rms);
-    // UI
-    document.getElementById('rms-val').textContent=(rms*100).toFixed(1)+'%';
-    document.getElementById('bass-val').textContent=(bass*100).toFixed(1)+'%';
-    document.getElementById('bpm-val').textContent=bpm?bpm+' BPM':'--';
-    const risk=Math.min(100,Math.round((S.outroVotes/45)*100));
-    const ov=document.getElementById('outro-val');
-    ov.textContent=risk+'%';
-    ov.style.color=risk>70?'var(--orange)':risk>40?'#ffb347':'var(--green)';
-    document.getElementById('energy-fill').style.width=(rms*500)+'%';
-    drawWave(beat);
-  }
-  loop();
-}
+const SK = 'summerGains2025v2';
 
-function detectBeat(bass,avgBass){
-  if(!S.playing) return false;
-  const now=Date.now();
-  if(now-S.lastBeatTime<280) return false;
-  if(avgBass<0.02) return false;
-  return bass>avgBass*1.38&&bass>0.08;
-}
+function load() { try { return JSON.parse(localStorage.getItem(SK)) || {}; } catch { return {}; } }
+function save(d) { try { localStorage.setItem(SK, JSON.stringify(d)); } catch {} }
 
-function onBeat(bass){
-  const now=Date.now();
-  S.lastBeatTime=now;
-  S.beatTimes.push(now);
-  if(S.beatTimes.length>16) S.beatTimes.shift();
-  const dot=document.getElementById('beat-dot');
-  dot.style.transform='scale(1.7)';dot.style.opacity='1';
-  setTimeout(()=>{dot.style.transform='scale(1)';dot.style.opacity='.6';},80);
-  if(bass>0.22){const f=document.getElementById('beat-flash');f.style.opacity='0.06';setTimeout(()=>f.style.opacity='0',80);}
-  if(S.beatWaiting&&S.beatWaitCb){S.beatWaiting=false;const cb=S.beatWaitCb;S.beatWaitCb=null;cb();}
-}
+let state = load();
+if (!state.days)    state.days    = {};
+if (!state.weights) state.weights = {};
+if (!state.week)    state.week    = 1;
 
-function calcBPM(){
-  if(S.beatTimes.length<4) return 0;
-  const intervals=[];
-  for(let i=1;i<S.beatTimes.length;i++) intervals.push(S.beatTimes[i]-S.beatTimes[i-1]);
-  const med=intervals.sort((a,b)=>a-b)[Math.floor(intervals.length/2)];
-  if(med<200||med>2000) return 0;
-  const bpm=Math.round(60000/med);
-  S.estimatedBPM=bpm;
-  document.getElementById('beat-bpm').textContent=bpm+' BPM';
-  return bpm;
-}
-
-function checkOutro(rms){
-  if(!S.playing||S.inTransition||!S.currentWindow) return;
-  try{
-    const cur=liveP()?.getCurrentTime()||0;
-    const intoWin=cur-S.currentWindow.startAt;
-    const rem=S.currentWindow.endAt-cur;
-    if(intoWin<20||rem>60||rem<5) return;
-    const peak=Math.max(...S.rmsHistory,0.01);
-    const curAvg=avg(S.rmsHistory.slice(-30));
-    if(peak>0&&curAvg/peak<0.35){
-      S.outroVotes++;
-      if(S.outroVotes>=45&&!S.outroTriggered&&!S.txPending){
-        S.outroTriggered=true;
-        document.getElementById('outro-warn').style.display='block';
-        log('🎚 Outro detected via waveform — mixing early','transition');
-        setTimeout(()=>{document.getElementById('outro-warn').style.display='none';S.txPending=true;doTx('outro');},1200);
-      }
-    } else {
-      S.outroVotes=Math.max(0,S.outroVotes-2);
-      if(S.outroVotes===0) S.outroTriggered=false;
-    }
-  }catch{}
-}
-
-function waitBeat(ms=2000){
-  return new Promise(r=>{
-    if(!S.audioReady){r();return;}
-    S.beatWaiting=true;S.beatWaitCb=r;
-    setTimeout(()=>{if(S.beatWaiting){S.beatWaiting=false;S.beatWaitCb=null;r();}},ms);
+// ── TRACKER ──────────────────────────────────────────────────────────────────
+function renderDays() {
+  const grid = document.getElementById('daysGrid');
+  grid.innerHTML = '';
+  const w = state.week;
+  WEEK_DAYS.forEach((d, i) => {
+    const key  = `w${w}d${i}`;
+    const done = !d.rest && state.days[key];
+    const cell = document.createElement('div');
+    cell.className = 'day-cell' + (done ? ' done' : '') + (d.rest ? ' rest-day' : '');
+    cell.innerHTML = `<div class="day-cell-name">${d.name}</div><div class="day-cell-type">${d.type}</div><div class="day-cell-check">✓</div>`;
+    if (!d.rest) cell.onclick = () => { state.days[key] = !state.days[key]; save(state); renderDays(); };
+    grid.appendChild(cell);
   });
+  updateSummary();
 }
 
-function drawWave(isBeat){
-  const canvas=document.getElementById('waveform-canvas');
-  const ctx=S.waveCtx;if(!ctx) return;
-  canvas.width=canvas.offsetWidth*devicePixelRatio;
-  canvas.height=canvas.offsetHeight*devicePixelRatio;
-  ctx.scale(devicePixelRatio,devicePixelRatio);
-  const W=canvas.offsetWidth,H=canvas.offsetHeight;
-  ctx.clearRect(0,0,W,H);
-  const bins=Math.min(S.freqData.length/2,180),bw=W/bins;
-  for(let i=0;i<bins;i++){
-    const v=S.freqData[i]/255,bh=v*H;
-    const hue=isBeat?200+i*.8:280+i*.6;
-    ctx.fillStyle=`hsla(${hue},100%,65%,${0.7+v*.3})`;
-    ctx.fillRect(i*bw,H-bh,bw-.5,bh);
+function updateSummary() {
+  const w = state.week;
+  let wkDone = 0;
+  WEEK_DAYS.forEach((d, i) => { if (!d.rest && state.days[`w${w}d${i}`]) wkDone++; });
+
+  let total = 0;
+  for (let wk = 1; wk <= 12; wk++)
+    WEEK_DAYS.forEach((d, i) => { if (!d.rest && state.days[`w${wk}d${i}`]) total++; });
+
+  let streak = 0;
+  for (let wk = w; wk >= 1; wk--) {
+    let c = 0;
+    WEEK_DAYS.forEach((d, i) => { if (!d.rest && state.days[`w${wk}d${i}`]) c++; });
+    if (c === 5) streak++; else break;
   }
-  if(isBeat){ctx.fillStyle='rgba(255,45,135,0.1)';ctx.fillRect(0,0,W,H);}
+
+  document.getElementById('weekDone').textContent   = wkDone + '/5';
+  document.getElementById('totalDone').textContent  = total;
+  document.getElementById('streakCount').textContent = streak;
+  document.getElementById('pctDone').textContent    = Math.round((total / 60) * 100) + '%';
+  document.getElementById('weekFill').style.width   = (wkDone / 5 * 100) + '%';
 }
 
-// ── YT API ────────────────────────────────────────────────────────
-function onYouTubeIframeAPIReady(){S.ytApiReady=true;S.ytCbs.forEach(f=>f());S.ytCbs=[];}
-function whenYT(cb){S.ytApiReady?cb():S.ytCbs.push(cb);}
-function liveP(){return S.active==='A'?S.pA:S.pB;}
-function stagingP(){return S.active==='A'?S.pB:S.pA;}
-function swapActive(){
-  S.active=S.active==='A'?'B':'A';
-  const la=document.getElementById('layer-a'),lb=document.getElementById('layer-b');
-  la.style.opacity=S.active==='A'?'1':'0';la.style.zIndex=S.active==='A'?'2':'1';
-  lb.style.opacity=S.active==='B'?'1':'0';lb.style.zIndex=S.active==='B'?'2':'1';
+function changeWeek(dir) {
+  state.week = Math.max(1, Math.min(12, state.week + dir));
+  save(state);
+  document.getElementById('currentWeekDisplay').textContent = state.week;
+  document.getElementById('weekLabel').textContent = 'WEEK ' + state.week;
+  renderDays();
 }
 
-// ── INIT ──────────────────────────────────────────────────────────
-function init(){
-  const url=document.getElementById('pl-url').value.trim();
-  S.anthropicKey=document.getElementById('ant-key').value.trim();
-  S.txStyle=document.querySelector('input[name="txs"]:checked')?.value||'pump';
-  S.cutMode=document.querySelector('input[name="cut"]:checked')?.value||'dj';
-  if(!url){showToast('Paste a YouTube URL first!');return;}
-  const plM=url.match(/[?&]list=([a-zA-Z0-9_-]+)/);
-  const viM=url.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-  if(!plM&&!viM){showToast('Not a valid YouTube URL');return;}
-  showScreen('dj');updateCutBadge();updateTxUI();updateCutUI();
-  whenYT(()=>{
-    const base={autoplay:0,controls:1,rel:0,modestbranding:1,iv_load_policy:3};
-    const plVars=plM?{...base,list:plM[1],listType:'playlist'}:base;
-    S.pA=new YT.Player('yt-a',{width:'100%',height:'100%',playerVars:plVars,
-      events:{onReady:()=>{S.aReady=true;bothReady();},onStateChange:e=>sc(e,'A'),onError:()=>err('A')}});
-    S.pB=new YT.Player('yt-b',{width:'100%',height:'100%',playerVars:base,
-      events:{onReady:()=>{S.bReady=true;bothReady();},onStateChange:e=>sc(e,'B'),onError:()=>err('B')}});
-    setTimeout(async()=>{
-      const ids=S.pA.getPlaylist?.()??[];
-      if(ids.length){log('⟳ Loading '+ids.length+' tracks...','info');await loadMeta(ids.slice(0,80));buildQ(S.energy);renderQ();log('✅ '+S.tracks.length+' tracks — press ▶ then enable Waveform Analysis!','hype');}
-      else setTimeout(async()=>{const i2=S.pA.getPlaylist?.()??[];if(i2.length){await loadMeta(i2.slice(0,80));buildQ(S.energy);renderQ();log('✅ Ready!','hype');}},3000);
-    },2500);
-    startPoll();
-  });
+function resetWeek() {
+  const w = state.week;
+  WEEK_DAYS.forEach((_, i) => delete state.days[`w${w}d${i}`]);
+  save(state); renderDays();
 }
 
-function bothReady(){
-  if(!S.aReady||!S.bReady) return;
-  S.pA.setVolume(S.volume);S.pB.setVolume(0);setStatus('READY','cyan');
-  if(S.anthropicKey) callDJ('DJ set starting. Hype intro, 2 sentences.','hype');
-  else log('🎧 Engine ready. Press ▶ then click "Enable Waveform Analysis" for beat sync!','hype');
-}
-
-// ── METADATA ──────────────────────────────────────────────────────
-async function loadMeta(ids){for(let i=0;i<ids.length;i+=6){await Promise.all(ids.slice(i,i+6).map(fetchOE));if(i+6<ids.length)await sl(90);}}
-async function fetchOE(id){
-  try{const r=await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${id}&format=json`);if(!r.ok)throw 0;const d=await r.json();up({id,title:d.title||'Track',artist:d.author_name||'YouTube',thumb:`https://img.youtube.com/vi/${id}/mqdefault.jpg`,energy:estE(d.title||'',d.author_name||'')});}
-  catch{up({id,title:'Track',artist:'YouTube',thumb:`https://img.youtube.com/vi/${id}/mqdefault.jpg`,energy:6});}
-}
-function up(t){const i=S.tracks.findIndex(x=>x.id===t.id);if(i>=0)Object.assign(S.tracks[i],t);else S.tracks.push(t);}
-
-// ── ENERGY ESTIMATION ─────────────────────────────────────────────
-function estE(title,artist){
-  const s=(title+' '+artist).toLowerCase();
-  if(/slow\s*danc|ballad|lullaby|unplugged|acoustic|someone\s*like\s*you|let\s*her\s*go|see\s*you\s*again|fix\s*you|skinny\s*love|chasing\s*cars|yellow|hallelujah|night\s*changes/.test(s)) return rnd(2,3);
-  if(/golden\s*hour|heat\s*waves|electric\s*love|watermelon\s*sugar|peaches|sunflower|lovely|lover|die\s*for\s*you/.test(s)) return rnd(4,5);
-  if(/chill|lofi|smooth|mellow|float|wave|easy|drift|vibe/.test(s)) return rnd(4,5);
-  if(/blinding\s*lights|industry\s*baby|about\s*damn\s*time|good\s*4\s*u|levitating|starboy|cruel\s*summer|anti.hero|bad\s*guy|unholy/.test(s)) return rnd(8,9);
-  if(/party|dance|club|banger|rave|edm|dubstep|drum.*bass|pump\s*up|bounce|turn\s*up/.test(s)) return rnd(8,10);
-  if(/trap|drill|rap|hip\s*hop/.test(s)) return rnd(7,9);
-  return rnd(5,8);
-}
-const eColor=e=>e>=9?'#ff2d87':e>=7?'#ff8c00':e>=5?'#00f5ff':e>=3?'#8b5cf6':'#4a9eff';
-const eLabel=e=>e>=9?'ABSOLUTE BANGER':e>=7?'HIGH ENERGY':e>=5?'VIBING':e>=3?'CHILL MODE':'SLOW DANCE';
-
-function calcWin(track,dur){
-  const e=track.energy,d=dur||210;
-  let pd;
-  if(S.cutMode==='hype') pd=e>=9?rnd(30,55):e>=7?rnd(45,70):e>=5?rnd(55,80):rnd(65,90);
-  else if(S.cutMode==='dj') pd=e>=9?rnd(55,85):e>=7?rnd(70,100):e>=5?rnd(85,115):rnd(100,135);
-  else pd=e>=9?rnd(100,145):e>=7?rnd(120,165):e>=5?rnd(140,185):rnd(155,200);
-  let si=e>=9?rnd(18,32):e>=7?rnd(12,24):e>=5?rnd(8,18):e>=3?rnd(4,12):rnd(2,8);
-  if(S.cutMode==='chill') si=Math.floor(si*.5);
-  const start=Math.min(si,d*.38);
-  const end=Math.max(Math.min(start+pd,d-4),start+20);
-  return{startAt:Math.floor(start),endAt:Math.floor(end)};
-}
-
-// ── QUEUE ─────────────────────────────────────────────────────────
-function buildQ(e,n=8){
-  const ex=new Set([S.current?.id,S.preloadTrack?.id,...S.played.slice(-10),...S.queue.filter(q=>q._manual).map(q=>q.id)]);
-  const pool=S.tracks.filter(t=>!ex.has(t.id));
-  const s=pool.map(t=>({...t,_sc:Math.abs(t.energy-e)+Math.random()*1.6})).sort((a,b)=>a._sc-b._sc).slice(0,n);
-  const m=S.queue.filter(q=>q._manual);
-  S.queue=[...m,...s.filter(x=>!m.find(y=>y.id===x.id))].slice(0,n);
-}
-
-// ── PRE-LOADING ───────────────────────────────────────────────────
-function preload(){
-  if(S.preloaded||S.inTransition) return;
-  if(!S.queue.length) buildQ(S.energy);
-  const next=S.queue[0];if(!next) return;
-  const win=calcWin(next,210);
-  stagingP().cueVideoById({videoId:next.id,startSeconds:win.startAt});
-  S.preloadTrack=next;S.preloadWindow=win;S.preloaded=true;
-  document.getElementById('preload-dot').style.background='var(--cyan)';
-  document.getElementById('preload-lbl').textContent='Loaded: '+next.title.slice(0,22);
-}
-
-function sc(e,which){
-  const isLive=which===S.active,YTS=YT.PlayerState;
-  if(isLive){
-    if(e.data===YTS.PLAYING){S.playing=true;document.getElementById('play-btn').textContent='⏸';syncInfo();setStatus('LIVE','pink');}
-    else if(e.data===YTS.PAUSED){S.playing=false;document.getElementById('play-btn').textContent='▶';setStatus('PAUSED','dim');}
-    else if(e.data===YTS.ENDED&&!S.inTransition) doTx('auto');
-  } else if(stagingP()&&e.data===YT.PlayerState.PLAYING) stagingP().setVolume(0);
-}
-function err(w){if(w===S.active){log('⚠ Track error — skipping...','info');setTimeout(()=>doTx('auto'),300);}}
-
-function togglePlay(){if(!liveP())return;S.playing?liveP().pauseVideo():liveP().playVideo();}
-function setVol(v){S.volume=parseInt(v);document.getElementById('vol-num').textContent=S.volume;if(liveP())liveP().setVolume(S.volume);}
-
-function syncInfo(){
-  try{
-    const d=liveP().getVideoData();if(!d?.video_id)return;
-    const id=d.video_id;
-    let t=S.tracks.find(x=>x.id===id);
-    if(!t){t={id,title:d.title||'Now Playing',artist:d.author||'YouTube',thumb:`https://img.youtube.com/vi/${id}/mqdefault.jpg`,energy:estE(d.title||'',d.author||'')};S.tracks.push(t);}
-    else{if(d.title)t.title=d.title;if(d.author)t.artist=d.author;}
-    if(S.current?.id!==id){
-      S.current=t;S.outroVotes=0;S.outroTriggered=false;S.rmsHistory=[];
-      const dur=liveP().getDuration()||210;
-      const win=calcWin(t,dur);
-      S.currentWindow=win;liveP().seekTo(win.startAt,true);
-      S.played.push(id);S.queue=S.queue.filter(q=>q.id!==id);
-      if(S.queue.length<3)buildQ(S.energy);
-      updateNP();renderQ();updateWinUI(win,dur);
-    }
-  }catch{}
-}
-
-function startPoll(){
-  clearInterval(S.pollTimer);
-  S.pollTimer=setInterval(()=>{
-    if(!liveP()||!S.playing)return;
-    try{
-      const cur=liveP().getCurrentTime()||0,dur=liveP().getDuration()||1;
-      const win=S.currentWindow||{startAt:0,endAt:dur};
-      const wl=win.endAt-win.startAt,pct=Math.max(0,Math.min(100,((cur-win.startAt)/wl)*100));
-      document.getElementById('prog').style.width=pct+'%';
-      document.getElementById('t-cur').textContent=fmt(cur);
-      document.getElementById('t-end').textContent=fmt(win.endAt);
-      const hp=Math.max(0,Math.min(100,(cur/dur)*100));
-      document.getElementById('hype-head').style.left=hp+'%';
-      const rem=win.endAt-cur;
-      if(rem<32&&!S.preloaded&&!S.inTransition)preload();
-      const tl=S.cutMode==='hype'?6:S.cutMode==='dj'?8:10;
-      if(rem<tl&&rem>0&&!S.txPending&&!S.inTransition&&S.preloaded){S.txPending=true;doTx('auto');}
-      if(cur>=win.endAt+2&&!S.inTransition){S.txPending=true;doTx('auto');}
-    }catch{}
-  },700);
-}
-
-function updateWinUI(win,dur){
-  const d=dur||210;
-  document.getElementById('hype-range').style.left=(win.startAt/d)*100+'%';
-  document.getElementById('hype-range').style.width=((win.endAt-win.startAt)/d)*100+'%';
-  document.getElementById('t-window').textContent=fmt(win.endAt-win.startAt)+' window';
-}
-
-// ── ★ TRANSITION ENGINE ★ ──────────────────────────────────────
-async function doTx(mode){
-  if(S.inTransition)return;
-  S.inTransition=true;S.txPending=false;
-  if(!S.preloaded){preload();await sl(1000);}
-  if(!S.preloadTrack){S.inTransition=false;return;}
-  const fo=liveP(),fi=stagingP();
-  const dur=mode==='skip'?4000:S.cutMode==='hype'?5000:7000;
-  setStatus('MIXING','pink');
-  showTxBadge(mode==='skip'?'⚡ INSTANT MIX':mode==='outro'?'🎚 OUTRO CUT':'↪ BEAT-SYNCED CUT','var(--pink)',dur);
-  document.getElementById('stage-pulse').className='ring-anim';
-  // Beat-sync: wait for next beat before starting crossfade (not on urgent modes)
-  if(S.audioReady&&mode!=='skip'&&mode!=='outro') await waitBeat(1800);
-  const win=S.preloadWindow||{startAt:0,endAt:210};
-  fi.setVolume(0);fi.seekTo(win.startAt,true);await sl(200);fi.playVideo();await sl(280);
-  if(S.txStyle==='pump') await pumpTx(fo,fi,dur);
-  else if(S.txStyle==='smooth') await smoothTx(fo,fi,dur);
-  else await cutTx(fo,fi);
-  fo.pauseVideo();fo.setVolume(0);fi.setVolume(S.volume);swapActive();
-  const next=S.preloadTrack;
-  S.current=next;S.currentWindow=S.preloadWindow;S.outroVotes=0;S.outroTriggered=false;S.rmsHistory=[];
-  S.played.push(next.id);S.queue=S.queue.filter(q=>q.id!==next.id);
-  S.preloaded=false;S.preloadTrack=null;S.preloadWindow=null;
-  try{const rd=fi.getDuration()||210;const rw=calcWin(next,rd);S.currentWindow=rw;updateWinUI(rw,rd);const na=fi.getCurrentTime()||0;if(na<rw.startAt)fi.seekTo(rw.startAt,true);}catch{}
-  updateNP();buildQ(S.energy);renderQ();
-  document.getElementById('stage-pulse').className='';
-  document.getElementById('preload-dot').style.background='rgba(255,255,255,.2)';
-  document.getElementById('preload-lbl').textContent='Next: idle';
-  setStatus('LIVE','pink');S.inTransition=false;S.txPending=false;
-  const bpmTag=S.estimatedBPM?` @ ${S.estimatedBPM}BPM`:'';
-  log(CANNED.transition[rndI(CANNED.transition.length)]+(S.audioReady?` (beat-synced${bpmTag})`:' (heuristic)'),'transition');
-  if(S.anthropicKey)callDJ(`Mixed into "${next.title}" by ${next.artist}. Energy ${next.energy}/10${S.estimatedBPM?' at '+S.estimatedBPM+'BPM':''}. Short DJ line.`,'transition');
-  if(S.queue.length<3)buildQ(S.energy);
-  setTimeout(preload,2500);
-}
-
-async function pumpTx(fo,fi,dur){
-  const BPM=S.estimatedBPM&&S.estimatedBPM>60&&S.estimatedBPM<200?S.estimatedBPM:128;
-  const BEAT=60000/BPM,HOLD=BEAT*.48,DIP=BEAT*.22,RISE=BEAT*.30;
-  const total=Math.ceil(dur/BEAT);
-  for(let i=0;i<2;i++){fi.setVolume(Math.round(S.volume*.08*(i+1)));await sl(BEAT);}
-  const p=total-4;
-  for(let i=0;i<p;i++){
-    const t=i/p,ob=S.volume*Math.max(0,1-t*1.1),iv=Math.round(S.volume*Math.min(1,.16+t*.9));
-    fi.setVolume(iv);fo.setVolume(Math.round(ob));await sl(HOLD);
-    if(ob>4){fo.setVolume(Math.round(ob*.08));await sl(DIP);fo.setVolume(Math.round(ob*.52));await sl(RISE);}
-    else await sl(DIP+RISE);
-  }
-  fo.setVolume(0);for(let i=0;i<4;i++){fi.setVolume(Math.round(S.volume*(.88+.12*(i/4))));await sl(BEAT*.5);}
-}
-async function smoothTx(fo,fi,dur){
-  const N=24,dt=dur/N;
-  for(let i=0;i<=N;i++){fo.setVolume(Math.round(S.volume*(1-i/N)));fi.setVolume(Math.round(S.volume*(i/N)));await sl(dt);}
-}
-async function cutTx(fo,fi){
-  const N=10,dt=50;for(let i=1;i<=N;i++){fo.setVolume(Math.round(S.volume*(1-i/N)));await sl(dt);}
-  fi.setVolume(S.volume);
-}
-
-// ── CONTROLS ──────────────────────────────────────────────────────
-async function changeEnergy(e2){
-  const e=Math.max(1,Math.min(10,Math.round(e2)));S.energy=e;
-  if(S.preloaded){S.preloaded=false;S.preloadTrack=null;S.preloadWindow=null;}
-  buildQ(e);renderQ();updateEUI();
-  const type=e>=7?'hype':'chill';
-  log(CANNED[type][rndI(CANNED[type].length)],type);
-  if(S.anthropicKey)callDJ(`Energy to ${e}/10. ${e>=7?'Ramp up':'Chill down'}. Song: "${S.current?.title||'track'}". 2 sentences.`,type);
-  await sl(400);preload();
-}
-async function handleSkip(){
-  const btn=document.getElementById('skip-btn');
-  if(S.inTransition)return;
-  btn.disabled=true;
-  log(CANNED.skip[rndI(CANNED.skip.length)],'skip');
-  if(S.anthropicKey)callDJ('Emergency skip! Short hype line.','skip');
-  if(!S.preloaded){preload();await sl(800);}
-  await doTx('skip');
-  setTimeout(()=>btn.disabled=false,2000);
-}
-async function handleRequest(){
-  const val=document.getElementById('req-inp').value.trim();if(!val)return;
-  document.getElementById('req-inp').value='';
-  const id=extId(val);if(!id){showToast('Paste a full YouTube video URL');return;}
-  await fetchOE(id);
-  const t=S.tracks.find(x=>x.id===id)||{id,title:'Requested Track',artist:'YouTube',thumb:`https://img.youtube.com/vi/${id}/mqdefault.jpg`,energy:S.energy};
-  t._manual=true;S.queue.unshift(t);S.queue=S.queue.slice(0,8);
-  S.preloaded=false;S.preloadTrack=null;S.preloadWindow=null;preload();renderQ();
-  log(CANNED.request[rndI(CANNED.request.length)]+` "${t.title}" — pre-loading!`,'request');
-  if(S.anthropicKey)callDJ(`Request: "${t.title}" bumped up. Short hype line.`,'request');
-}
-async function addSong(){
-  const val=document.getElementById('add-inp').value.trim();if(!val)return;
-  document.getElementById('add-inp').value='';
-  const id=extId(val);if(!id){showToast('Paste a full YouTube video URL');return;}
-  await fetchOE(id);const t=S.tracks.find(x=>x.id===id);
-  if(t){t._manual=true;S.queue.unshift(t);S.queue=S.queue.slice(0,8);renderQ();showToast('Added: '+t.title);}
-}
-
-// ── STYLE TOGGLES ────────────────────────────────────────────────
-function setCut(m){S.cutMode=m;updateCutBadge();updateCutUI();if(S.preloaded){S.preloaded=false;S.preloadTrack=null;S.preloadWindow=null;setTimeout(preload,300);}}
-function setTx(s){S.txStyle=s;updateTxUI();}
-function updateCutBadge(){document.getElementById('cut-badge').textContent={chill:'CHILL MODE',dj:'DJ MODE',hype:'HYPE BEAST'}[S.cutMode]||'DJ MODE';}
-function updateCutUI(){
-  const ac={chill:'rgba(0,245,255,.15)',dj:'rgba(255,45,135,.2)',hype:'rgba(255,140,0,.18)'};
-  const ab={chill:'rgba(0,245,255,.45)',dj:'rgba(255,45,135,.5)',hype:'rgba(255,140,0,.45)'};
-  const al={chill:'var(--cyan)',dj:'var(--pink)',hype:'var(--orange)'};
-  ['chill','dj','hype'].forEach(m=>{
-    const b=document.getElementById('cm-'+m);if(!b)return;
-    if(m===S.cutMode){b.style.background=ac[m];b.style.borderColor=ab[m];b.style.color=al[m];}
-    else{b.style.background='rgba(0,245,255,.08)';b.style.borderColor='rgba(0,245,255,.28)';b.style.color='var(--cyan)';}
-  });
-}
-function updateTxUI(){
-  const ac={pump:'rgba(255,45,135,.2)',smooth:'rgba(0,245,255,.15)',cut:'rgba(255,140,0,.15)'};
-  const ab={pump:'rgba(255,45,135,.5)',smooth:'rgba(0,245,255,.45)',cut:'rgba(255,140,0,.45)'};
-  const al={pump:'var(--pink)',smooth:'var(--cyan)',cut:'var(--orange)'};
-  ['pump','smooth','cut'].forEach(s=>{
-    const b=document.getElementById('ts-'+s);if(!b)return;
-    if(s===S.txStyle){b.style.background=ac[s];b.style.borderColor=ab[s];b.style.color=al[s];}
-    else{b.style.background='rgba(0,245,255,.08)';b.style.borderColor='rgba(0,245,255,.28)';b.style.color='var(--cyan)';}
-  });
-}
-
-// ── AI DJ ────────────────────────────────────────────────────────
-const CANNED={
-  hype:["LET'S GO — energy RISING!","DROPPING the heat — feel that!","🔥 Vibes MAXED!"],
-  chill:["Easing it down... vibe shift.","Smooth drop in tempo — feel it.","Slowing down, stay with me."],
-  transition:["Beat-synced cut — clean!","MIXING on the drop!","Seamless — you felt that!"],
-  skip:["CUTTING NOW — new vibe!","Emergency mix — here we GO!","Fast cut incoming!"],
-  request:["Request LOCKED IN —","Bumping to front:","Your song — jumping queue:"],
-};
-async function callDJ(prompt,type){
-  document.getElementById('ai-dot').style.display='block';document.getElementById('ai-lbl').style.display='inline';
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
-      headers:{'Content-Type':'application/json','x-api-key':S.anthropicKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
-        system:"AI DJ. Max 2 punchy sentences. DJ slang, BPM talk. Open with: DROPPING..., MIXING..., LET'S GO..., FEEL THAT... Never break character.",
-        messages:[{role:'user',content:prompt}]})});
-    const d=await r.json();const text=d.content?.[0]?.text;if(text)log(text,type);
-  }catch{log(CANNED[type]?.[0]||'Vibes electric!',type);}
-  document.getElementById('ai-dot').style.display='none';document.getElementById('ai-lbl').style.display='none';
-}
-
-// ── UI ────────────────────────────────────────────────────────────
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s-'+id).classList.add('active');}
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
-function setStatus(label,color){
-  const pill=document.getElementById('status-pill'),dot=pill.querySelector('.pill-dot'),span=pill.querySelector('span');
-  span.textContent=label;
-  const c=color==='pink'?'var(--pink)':color==='cyan'?'var(--cyan)':'rgba(255,255,255,.3)';
-  const bg=color==='pink'?'rgba(255,45,135,.1)':color==='cyan'?'rgba(0,245,255,.1)':'rgba(255,255,255,.05)';
-  const bc=color==='pink'?'rgba(255,45,135,.3)':color==='cyan'?'rgba(0,245,255,.25)':'rgba(255,255,255,.1)';
-  pill.style.background=bg;pill.style.border=`1px solid ${bc}`;pill.style.color=c;dot.style.background=c;
-}
-function showTxBadge(text,color,dur){
-  const badge=document.getElementById('tx-badge'),txt=document.getElementById('tx-badge-txt'),fill=document.getElementById('tx-fill');
-  badge.style.display='block';txt.textContent=text;
-  txt.style.background=color+'22';txt.style.border=`1px solid ${color}55`;txt.style.color=color;
-  fill.style.background=color;fill.style.width='0%';fill.style.transition=`width ${dur}ms linear`;
-  setTimeout(()=>fill.style.width='100%',50);
-  clearInterval(S.txTimer);S.txTimer=setTimeout(()=>badge.style.display='none',dur+200);
-}
-function updateNP(){
-  if(!S.current)return;
-  const ec=eColor(S.current.energy);
-  document.getElementById('tr-title').textContent=S.current.title;
-  document.getElementById('tr-artist').textContent=S.current.artist;
-  document.getElementById('tr-nrg').textContent=`⚡ ENERGY ${S.current.energy}/10 — ${eLabel(S.current.energy)}`;
-  document.getElementById('tr-nrg').style.color=ec;
-  document.getElementById('prog').style.background=ec;
-  document.getElementById('prog').style.boxShadow=`0 0 8px ${ec}`;
-}
-function updateEUI(){
-  const ec=eColor(S.energy);
-  document.getElementById('e-num').textContent=S.energy;
-  document.getElementById('e-num').style.color=ec;
-  document.getElementById('e-num').style.textShadow=`0 0 18px ${ec}`;
-  document.getElementById('e-lbl').textContent=eLabel(S.energy);
-  document.getElementById('e-bar').style.width=(S.energy*10)+'%';
-  document.getElementById('e-bar').style.background=`linear-gradient(to right,var(--purple),${ec})`;
-  document.getElementById('e-bar').style.boxShadow=`0 0 10px ${ec}`;
-}
-function renderQ(){
-  const el=document.getElementById('q-list');
-  if(!S.queue.length){el.innerHTML='<div style="font-size:10px;color:rgba(255,255,255,.22);padding:6px 0">Building queue...</div>';return;}
-  el.innerHTML=S.queue.slice(0,7).map((t,i)=>{
-    const ec=eColor(t.energy),isN=S.preloadTrack?.id===t.id;
-    const win=isN&&S.preloadWindow?` · ${fmt(S.preloadWindow.startAt)}→${fmt(S.preloadWindow.endAt)}`:'';
-    return `<div class="qitem" style="${isN?'border-color:'+ec+'44;background:'+ec+'09':''}">
-      <div style="font-size:8px;color:rgba(255,255,255,.22);min-width:12px">${i+1}</div>
-      ${t.thumb?`<img src="${t.thumb}" style="width:28px;height:21px;object-fit:cover;border-radius:3px;flex-shrink:0">`:''}
-      <div style="flex:1;min-width:0">
-        <div style="font-size:10px;color:var(--t);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.title}</div>
-        <div style="font-size:8px;color:rgba(255,255,255,.3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.artist}${isN?` <span style="color:${ec}">· LOADED${win}</span>`:''}</div>
+// ── WEIGHTS ──────────────────────────────────────────────────────────────────
+function renderWeights() {
+  const grid = document.getElementById('weightsGrid');
+  grid.innerHTML = '';
+  EXERCISES.forEach(ex => {
+    const saved = state.weights[ex.id] || { current: ex.start, pr: ex.start };
+    const card  = document.createElement('div');
+    card.className = 'weight-card';
+    card.innerHTML = `
+      <div class="weight-muscle">${ex.muscle}</div>
+      <div class="weight-exercise">${ex.name}</div>
+      <div class="weight-input-row">
+        <input class="weight-input" type="number" min="0" max="999" placeholder="—"
+          value="${saved.current || ''}" />
+        <span class="weight-unit">lbs</span>
       </div>
-      <div class="edot" style="background:${ec}18;border:1px solid ${ec}44;color:${ec}">${t.energy}</div>
-    </div>`;
-  }).join('');
-}
-function toggleAdd(){S.addVisible=!S.addVisible;document.getElementById('add-panel').style.display=S.addVisible?'block':'none';}
-function log(text,type='info'){
-  const bg=type==='hype'?'rgba(255,45,135,.09)':type==='skip'?'rgba(255,45,135,.14)':type==='request'?'rgba(0,245,255,.08)':type==='chill'?'rgba(139,92,246,.08)':type==='transition'?'rgba(255,140,0,.07)':'rgba(255,255,255,.03)';
-  const bc=(type==='hype'||type==='skip')?'#ff2d87':type==='request'?'#00f5ff':type==='chill'?'#8b5cf6':type==='transition'?'#ffb347':'rgba(255,255,255,.14)';
-  const t=new Date().toLocaleTimeString('en',{hour:'2-digit',minute:'2-digit'});
-  const div=document.createElement('div');
-  div.className='msg';div.style.cssText=`background:${bg};border-left:2px solid ${bc};padding:5px 9px;border-radius:5px`;
-  div.innerHTML=`<span style="font-size:8px;color:rgba(255,255,255,.25);margin-right:8px">${t}</span><span style="font-size:11px">${text}</span>`;
-  const panel=document.getElementById('dj-log');panel.appendChild(div);
-  while(panel.children.length>35)panel.removeChild(panel.firstChild);
-  div.scrollIntoView({behavior:'smooth'});
+      <div class="weight-pr ${saved.pr ? 'show' : ''}" id="pr_${ex.id}">↑ PR: ${saved.pr || '—'} lbs</div>
+      ${ex.start ? `<div class="weight-start">started: ${ex.start} lbs</div>` : ''}
+    `;
+    const inp = card.querySelector('input');
+    inp.addEventListener('input', () => {
+      const val   = parseInt(inp.value) || 0;
+      const oldPr = parseInt(state.weights[ex.id]?.pr) || 0;
+      const newPr = Math.max(val, oldPr);
+      state.weights[ex.id] = { current: val, pr: newPr };
+      save(state);
+      const prEl = document.getElementById('pr_' + ex.id);
+      prEl.textContent = '↑ PR: ' + newPr + ' lbs';
+      prEl.classList.add('show');
+    });
+    grid.appendChild(card);
+  });
 }
 
-// ── UTILS ─────────────────────────────────────────────────────────
-const sl=ms=>new Promise(r=>setTimeout(r,ms));
-const fmt=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
-const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
-const rndI=n=>Math.floor(Math.random()*n);
-const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
-function extId(url){const m=url.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);return m?m[1]:null;}
+// ── INIT ─────────────────────────────────────────────────────────────────────
+document.getElementById('currentWeekDisplay').textContent = state.week;
+document.getElementById('weekLabel').textContent = 'WEEK ' + state.week;
+renderDays();
+renderWeights();
 </script>
 </body>
 </html>
