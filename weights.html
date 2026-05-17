@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0a0a">
+<title>BUILD DIFFERENT — Weights</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#090909; --surface:#161616; --surface2:#202020; --surface3:#2a2a2a;
+  --orange:#ff5500; --orange-dim:rgba(255,85,0,0.15);
+  --white:#f0ece4; --text:#a09890; --muted:#555; --border:#2a2a2a;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bot:env(safe-area-inset-bottom,0px);
+  --safe-l:env(safe-area-inset-left,0px);
+  --safe-r:env(safe-area-inset-right,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth;background:var(--black)}
+body{
+  font-family:'DM Sans',sans-serif;color:var(--white);background:var(--black);
+  padding-top:calc(52px + var(--safe-top));
+  padding-bottom:calc(68px + var(--safe-bot));
+  padding-left:var(--safe-l);padding-right:var(--safe-r);
+  min-height:100svh;
+}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:90;
+  height:calc(52px + var(--safe-top));
+  padding-top:var(--safe-top);
+  background:rgba(9,9,9,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding-left:calc(20px + var(--safe-l));padding-right:calc(20px + var(--safe-r));
+}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--orange);letter-spacing:3px}
+.nav-link{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:1px;transition:color .2s}
+.nav-link:hover{color:var(--white)}
+
+/* ─── BOTTOM TAB BAR ─── */
+.tab-bar{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:90;
+  background:rgba(9,9,9,0.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid var(--border);
+  padding-bottom:var(--safe-bot);
+}
+.tab-bar-inner{display:flex}
+.tab-bar a{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:10px 4px 8px;text-decoration:none;color:var(--muted);
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:1px;gap:5px;
+  transition:color .15s;
+}
+.tab-bar a.active,.tab-bar a:active{color:var(--orange)}
+.tab-icon{font-size:19px;line-height:1}
+
+/* ─── LAYOUT ─── */
+.page{max-width:680px;margin:0 auto;padding:28px 20px 16px}
+.section-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--orange);margin-bottom:12px}
+h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,9vw,56px);line-height:.95;letter-spacing:1px;margin-bottom:20px}
+
+/* ─── HEADER STRIP ─── */
+.header-strip{
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:24px 20px;
+  padding-left:calc(20px + var(--safe-l));padding-right:calc(20px + var(--safe-r));
+}
+.header-strip h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(42px,11vw,64px);line-height:.9;letter-spacing:2px}
+.header-strip h1 span{color:var(--orange)}
+.header-note{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-top:10px;letter-spacing:1px;line-height:1.6}
+
+/* ─── FILTER TABS ─── */
+.filter-tabs{display:flex;gap:2px;margin-bottom:2px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+.filter-tabs::-webkit-scrollbar{display:none}
+.ftab{
+  background:var(--surface);border:none;color:var(--muted);cursor:pointer;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;
+  padding:10px 14px;white-space:nowrap;transition:all .15s;text-transform:uppercase;
+  flex-shrink:0;
+}
+.ftab:active,.ftab.active{background:var(--orange);color:var(--black);font-weight:700}
+
+/* ─── WEIGHT CARDS ─── */
+.weights-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+.weight-card{
+  background:var(--surface);padding:20px 18px;
+  display:flex;flex-direction:column;gap:0;
+}
+.wc-muscle{font-family:'Space Mono',monospace;font-size:8px;color:var(--orange);letter-spacing:3px;text-transform:uppercase;margin-bottom:5px}
+.wc-name{font-size:13px;font-weight:600;color:var(--white);margin-bottom:14px;line-height:1.3;min-height:36px}
+.wc-input-row{display:flex;align-items:center;gap:8px}
+.wc-input{
+  background:var(--surface2);border:1px solid var(--surface3);
+  color:var(--white);font-family:'Bebas Neue',sans-serif;font-size:38px;
+  width:100%;max-width:100px;padding:6px 10px;text-align:center;outline:none;
+  transition:border .15s;-moz-appearance:textfield;border-radius:0;
+  -webkit-appearance:none;
+}
+.wc-input::-webkit-outer-spin-button,.wc-input::-webkit-inner-spin-button{-webkit-appearance:none}
+.wc-input:focus{border-color:var(--orange)}
+.wc-unit{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted)}
+.wc-pr{
+  font-family:'Space Mono',monospace;font-size:9px;color:var(--orange);
+  margin-top:8px;letter-spacing:1px;
+  opacity:0;transition:opacity .3s;display:flex;align-items:center;gap:4px;
+}
+.wc-pr.show{opacity:1}
+.pr-badge{background:var(--orange-dim);padding:2px 6px;font-size:8px}
+.wc-start{font-family:'Space Mono',monospace;font-size:8px;color:var(--surface3);margin-top:4px}
+.wc-start.has-start{color:var(--muted)}
+
+/* ─── OVERLOAD RULE ─── */
+.overload-banner{
+  background:var(--orange-dim);border:1px solid rgba(255,85,0,.3);
+  padding:16px 20px;margin-bottom:2px;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.ob-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.ob-title{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--orange);margin-bottom:3px}
+.ob-body{font-size:12px;color:var(--text);font-weight:300;line-height:1.6}
+
+/* ─── RESET ─── */
+.reset-row{display:flex;justify-content:flex-end;padding:12px 0}
+.reset-btn{
+  background:none;border:1px solid var(--surface3);color:var(--muted);
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:2px;
+  padding:8px 14px;cursor:pointer;transition:all .15s;text-transform:uppercase;min-height:36px;
+}
+.reset-btn:active{border-color:var(--muted);color:var(--white)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:520px){
+  .tab-bar{display:block}
+  nav .nav-link{display:none}
+  .header-strip{padding:20px 16px}
+  .page{padding:20px 16px 12px}
+  .weights-grid{grid-template-columns:1fr 1fr}
+  .weight-card{padding:16px 14px}
+  .wc-input{font-size:32px;max-width:86px}
+  .wc-name{font-size:12px;min-height:32px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">BUILD DIFFERENT</div>
+  <a href="index.html" class="nav-link">← DASHBOARD</a>
+</nav>
+
+<div class="tab-bar">
+  <div class="tab-bar-inner">
+    <a href="index.html">
+      <span class="tab-icon">📋</span>Dashboard
+    </a>
+    <a href="weights.html" class="active">
+      <span class="tab-icon">🏋️</span>Weights
+    </a>
+  </div>
+</div>
+
+<div class="header-strip">
+  <div class="section-label">// PR Tracker</div>
+  <h1>YOUR<span>NUMBERS.</span></h1>
+  <div class="header-note">Update after each session. Hit top of rep range → go up next time.</div>
+</div>
+
+<div class="page">
+
+  <div class="overload-banner">
+    <div class="ob-icon">⚡</div>
+    <div>
+      <div class="ob-title">Progressive Overload Rule</div>
+      <div class="ob-body">Hit the top of your rep range with clean form → increase weight by 5 lbs next session. This is the only rule that matters for growth.</div>
+    </div>
+  </div>
+
+  <!-- Filter tabs -->
+  <div class="filter-tabs" id="filterTabs"></div>
+
+  <div class="reset-row">
+    <button class="reset-btn" onclick="confirmReset()">Reset All PRs</button>
+  </div>
+
+  <!-- Weights grid -->
+  <div class="weights-grid" id="weightsGrid"></div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  EXERCISE DATA
+// ═══════════════════════════════════════════
+const EXERCISES = [
+  // CHEST
+  {id:'db_flat',     name:'DB Flat Bench Press',      muscle:'CHEST',     day:'MON/FRI', start:''},
+  {id:'incline_db',  name:'Incline DB Press',          muscle:'CHEST',     day:'MON/FRI', start:''},
+  {id:'cable_fly',   name:'Cable Fly',                 muscle:'CHEST',     day:'MON/FRI', start:''},
+  // BACK
+  {id:'bb_row',      name:'Barbell Row',               muscle:'BACK',      day:'TUE',     start:''},
+  {id:'lat_pull',    name:'Lat Pulldown',               muscle:'BACK',      day:'TUE',     start:''},
+  {id:'cable_row',   name:'Seated Cable Row',           muscle:'BACK',      day:'TUE',     start:''},
+  // BICEPS
+  {id:'db_curl',     name:'DB Curl',                   muscle:'BICEPS',    day:'TUE',     start:'25'},
+  {id:'incline_curl',name:'Incline DB Curl',            muscle:'BICEPS',    day:'TUE',     start:''},
+  {id:'cable_curl',  name:'Cable Curl (light)',         muscle:'BICEPS',    day:'FRI',     start:''},
+  {id:'conc_curl',   name:'Concentration Curl',         muscle:'BICEPS',    day:'FRI',     start:''},
+  {id:'bb_curl',     name:'Barbell Curl',               muscle:'BICEPS',    day:'SAT',     start:''},
+  {id:'hammer_curl', name:'Hammer Curl',                muscle:'BICEPS',    day:'SAT',     start:''},
+  {id:'preacher',    name:'Preacher Curl',              muscle:'BICEPS',    day:'SAT',     start:''},
+  // TRICEPS
+  {id:'skulls',      name:'Skull Crushers',             muscle:'TRICEPS',   day:'MON/SAT', start:''},
+  {id:'rope_down',   name:'Rope Pushdowns',             muscle:'TRICEPS',   day:'MON',     start:''},
+  {id:'tri_overhead',name:'Overhead Tricep Ext.',        muscle:'TRICEPS',   day:'SAT',     start:''},
+  {id:'dips',        name:'Dips',                       muscle:'TRICEPS',   day:'SAT',     start:''},
+  // LEGS
+  {id:'squat',       name:'Back Squat',                 muscle:'LEGS',      day:'THU',     start:''},
+  {id:'rdl',         name:'Romanian Deadlift',          muscle:'LEGS',      day:'THU',     start:''},
+  {id:'leg_press',   name:'Leg Press',                  muscle:'LEGS',      day:'THU',     start:''},
+  {id:'ham_curl',    name:'Hamstring Curl',              muscle:'LEGS',      day:'THU',     start:''},
+  {id:'calves',      name:'Calf Raises',                muscle:'LEGS',      day:'THU',     start:''},
+  // SHOULDERS
+  {id:'lat_raise',   name:'Lateral Raises',             muscle:'SHOULDERS', day:'THU',     start:''},
+  {id:'rear_fly',    name:'Rear Delt Fly',              muscle:'SHOULDERS', day:'THU',     start:''},
+];
+
+const MUSCLE_GROUPS = ['ALL',...[...new Set(EXERCISES.map(e=>e.muscle))]];
+
+// ═══════════════════════════════════════════
+//  LOCAL STORAGE
+// ═══════════════════════════════════════════
+const SK = 'bdiff_v3';
+function loadState(){
+  try{ return JSON.parse(localStorage.getItem(SK)) || {}; }catch{ return {}; }
+}
+function saveState(){
+  try{ localStorage.setItem(SK, JSON.stringify(state)); }catch{}
+}
+let state = loadState();
+if(!state.weights) state.weights = {};
+if(!state.week) state.week = 1;
+if(!state.days) state.days = {};
+
+// ═══════════════════════════════════════════
+//  FILTER
+// ═══════════════════════════════════════════
+let activeFilter = 'ALL';
+
+function renderFilterTabs(){
+  const tabs = document.getElementById('filterTabs');
+  tabs.innerHTML = '';
+  MUSCLE_GROUPS.forEach(m=>{
+    const btn = document.createElement('button');
+    btn.className = 'ftab' + (m === activeFilter ? ' active' : '');
+    btn.textContent = m;
+    btn.onclick = ()=>{ activeFilter = m; renderFilterTabs(); renderWeights(); };
+    tabs.appendChild(btn);
+  });
+}
+
+// ═══════════════════════════════════════════
+//  WEIGHTS RENDER
+// ═══════════════════════════════════════════
+function renderWeights(){
+  const grid = document.getElementById('weightsGrid');
+  grid.innerHTML = '';
+  const filtered = activeFilter === 'ALL' ? EXERCISES : EXERCISES.filter(e=>e.muscle===activeFilter);
+
+  filtered.forEach(ex=>{
+    const saved = state.weights[ex.id] || {current:'', pr:''};
+    const card = document.createElement('div');
+    card.className = 'weight-card';
+
+    const hasPr = !!saved.pr;
+    const hasStart = !!ex.start;
+
+    card.innerHTML = `
+      <div class="wc-muscle">${ex.muscle}</div>
+      <div class="wc-name">${ex.name}</div>
+      <div class="wc-input-row">
+        <input class="wc-input" type="number" inputmode="numeric" min="0" max="999"
+          placeholder="—" value="${saved.current || ''}" />
+        <span class="wc-unit">lbs</span>
+      </div>
+      <div class="wc-pr ${hasPr?'show':''}" id="pr_${ex.id}">
+        <span class="pr-badge">PR</span>${saved.pr || '—'} lbs
+      </div>
+      <div class="wc-start ${hasStart?'has-start':''}">
+        ${hasStart ? 'started: '+ex.start+' lbs' : ''}
+      </div>`;
+
+    const input = card.querySelector('input');
+
+    // On focus: select all text for easy editing on mobile
+    input.addEventListener('focus', ()=>{ setTimeout(()=>input.select(), 50); });
+
+    input.addEventListener('change', ()=>{
+      const val = parseInt(input.value) || 0;
+      if(val === 0){ input.value = ''; delete state.weights[ex.id]; saveState(); return; }
+      const oldPr = parseInt(state.weights[ex.id]?.pr) || 0;
+      const newPr = Math.max(val, oldPr);
+      const isPrBroken = val > oldPr && oldPr > 0;
+      state.weights[ex.id] = {current: val, pr: newPr};
+      saveState();
+      const prEl = document.getElementById('pr_'+ex.id);
+      prEl.innerHTML = `<span class="pr-badge">PR</span>${newPr} lbs`;
+      prEl.classList.add('show');
+      if(isPrBroken){
+        prEl.style.animation = 'none';
+        prEl.style.color = '#ffb432';
+        setTimeout(()=>{ prEl.style.color = ''; }, 1500);
+      }
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+function confirmReset(){
+  if(confirm('Reset all PR records? This cannot be undone.')){
+    state.weights = {};
+    saveState();
+    renderWeights();
+  }
+}
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+renderFilterTabs();
+renderWeights();
+</script>
+</body>
+</html>
