@@ -1,65 +1,204 @@
-# HangoutHunt Privacy Policy
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HangoutHunt — Privacy Policy</title>
+<style>
+  :root {
+    --bg: #0F0F14;
+    --surface: #1C1C27;
+    --surface-high: #252533;
+    --primary: #C8F04D;
+    --text: #F2F2F0;
+    --subtext: #9A9AAA;
+    --border: #2E2E3E;
+    --danger: #EF4444;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: rgba(200, 240, 77, 0.1);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: 40px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin: 0 0 8px;
+  }
+  .updated {
+    color: var(--subtext);
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    margin: 44px 0 12px;
+    padding-top: 4px;
+  }
+  p {
+    color: var(--text);
+    font-size: 15.5px;
+    margin: 0 0 14px;
+  }
+  ul {
+    margin: 0 0 14px;
+    padding-left: 20px;
+  }
+  li {
+    font-size: 15.5px;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  li strong { color: var(--text); }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .contact-box {
+    background: var(--surface-high);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 12px;
+    text-align: center;
+  }
+  .contact-box .label {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--subtext);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .contact-box .email {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--primary);
+  }
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0 32px;
+  }
+  .footer {
+    color: var(--subtext);
+    font-size: 13px;
+    text-align: center;
+  }
+  .footer a { color: var(--subtext); text-decoration: underline; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="eyebrow">Legal</span>
+    <h1>Privacy Policy</h1>
+    <div class="updated">Last updated: July 14, 2026</div>
 
-**Last updated:** July 14, 2026
+    <p>This policy explains what information the HangoutHunt app collects, why, and how it's handled.</p>
 
-This policy explains what information HangoutHunt ("the App") collects, why, and how it's handled. Fill in the bracketed placeholders below with your real contact details before publishing.
+    <h2>Who we are</h2>
+    <p>HangoutHunt is developed by Aarush Parikh and team. Contact: <a href="mailto:aarushparikh999@gmail.com">aarushparikh999@gmail.com</a>.</p>
 
-## Who we are
+    <h2>Information we collect</h2>
 
-HangoutHunt is developed by [Your Name / Team Name]. Contact: [support email address].
+    <div class="card">
+      <p><strong>Account information.</strong> When you create an account we collect your email address and password. Passwords are handled entirely by our authentication provider, Supabase, using industry-standard hashing — we never see or store your password in plain text.</p>
+    </div>
 
-## Information we collect
+    <div class="card">
+      <p><strong>Profile information.</strong> First and last name, gender, city, state, zip code, dietary restrictions, and your stated interests (hobbies, music, movies/TV, sports/fitness, cuisines). Most fields are optional.</p>
+    </div>
 
-**Account information.** When you create an account we collect your email address and password. Passwords are handled entirely by our authentication provider, Supabase, using industry-standard hashing — we never see or store your password in plain text.
+    <div class="card">
+      <p><strong>Location.</strong> With your permission, we use your device's location (or a city/zip you provide) to find hangout spots near you and to show your position and recommended venues on the in-app map. You can decline location access and enter a zip code manually instead.</p>
+    </div>
 
-**Profile information.** First and last name, gender, city, state, zip code, dietary restrictions, and your stated interests (hobbies, music, movies/TV, sports/fitness, cuisines). You choose what to share; most fields are optional.
+    <div class="card">
+      <p><strong>Favorite places.</strong> Place names you enter are looked up against a mapping service to get an address and coordinates, which we store so we can show them on your map.</p>
+    </div>
 
-**Location.** With your permission, we use your device's location (or a city/zip you provide) to find hangout spots near you and to show your position and recommended venues on the in-app map. You can decline location access and enter a zip code manually instead.
+    <div class="card">
+      <p><strong>Group session data.</strong> When you host or join a group session, we store the session's room code, location, interest tags, participant names, and swipe (like/skip) choices for the duration of the session, so the group's decision can be calculated.</p>
+    </div>
 
-**Favorite places.** Place names you enter are looked up against a mapping service to get an address and coordinates, which we store so we can show them on your map.
+    <div class="card">
+      <p><strong>Usage/recommendation history.</strong> We keep a log of activities suggested to you so we can show your past recommendations.</p>
+    </div>
 
-**Group session data.** When you host or join a group session, we store the session's room code, location, interest tags, participant names, and swipe (like/skip) choices for the duration of the session, so the group's decision can be calculated.
+    <h2>How we use your information</h2>
+    <ul>
+      <li>To create and secure your account</li>
+      <li>To generate personalized hangout/venue recommendations</li>
+      <li>To run group decision-making sessions (room codes, swiping, results)</li>
+      <li>To show your location and recommended places on a map</li>
+      <li>To improve the App</li>
+    </ul>
+    <p>We do not sell your personal information.</p>
 
-**Usage/recommendation history.** We keep a log of activities suggested to you so we can show your past recommendations.
+    <h2>Third parties we share data with</h2>
+    <p>We use the following service providers to operate the App. Each only receives the minimum data needed to perform its function:</p>
+    <ul>
+      <li><strong>Supabase</strong> — authentication, database, and file storage. Hosts all account and profile data.</li>
+      <li><strong>Groq</strong> — generates activity/venue recommendations from your stated interests, mode (solo/date/family/friends), and a general location string (e.g., "Palatine, IL"). Groq does not receive your name, email, or account identifiers.</li>
+      <li><strong>TomTom</strong> — looks up addresses/coordinates for places you name. Receives only the place name text you enter.</li>
+      <li><strong>Zippopotam.us</strong> — converts a U.S. zip code to a city/state name. Receives only the zip code.</li>
+      <li><strong>Apple/Google</strong> — app distribution and, on Android, mapping (Google Maps) for the in-app map.</li>
+    </ul>
 
-## How we use your information
+    <h2>Data retention and deletion</h2>
+    <p>You can delete your account at any time from <strong>Account → Delete Account</strong> inside the App. This permanently removes your profile, saved places, recommendation history, and session participation records, and deletes your login credentials. This action cannot be undone.</p>
 
-- To create and secure your account
-- To generate personalized hangout/venue recommendations
-- To run group decision-making sessions (room codes, swiping, results)
-- To show your location and recommended places on a map
-- To improve the App
+    <h2>Children's privacy</h2>
+    <p>HangoutHunt is not directed to children under 13, and we do not knowingly collect information from children under that age.</p>
 
-We do not sell your personal information.
+    <h2>Your choices</h2>
+    <ul>
+      <li>You can decline location permission; the App will ask for a zip code instead.</li>
+      <li>You can edit or remove your profile information at any time from the Account tab.</li>
+      <li>You can delete your account and all associated data at any time (see above).</li>
+    </ul>
 
-## Third parties we share data with
+    <h2>Changes to this policy</h2>
+    <p>We may update this policy from time to time. We'll update the "Last updated" date above when we do.</p>
 
-We use the following service providers to operate the App. Each only receives the minimum data needed to perform its function:
+    <h2>Contact us</h2>
+    <div class="contact-box">
+      <span class="label">Questions about this policy or your data</span>
+      <a class="email" href="mailto:aarushparikh999@gmail.com">aarushparikh999@gmail.com</a>
+    </div>
 
-- **Supabase** — authentication, database, and file storage. Hosts all account and profile data.
-- **Groq** — generates activity/venue recommendations from your stated interests, mode (solo/date/family/friends), and a general location string (e.g., "Palatine, IL"). Groq does not receive your name, email, or account identifiers.
-- **TomTom** — looks up addresses/coordinates for places you name. Receives only the place name text you enter.
-- **Zippopotam.us** — converts a U.S. zip code to a city/state name. Receives only the zip code.
-- **Apple/Google** — app distribution and, on Android, mapping (Google Maps) for the in-app map.
-
-## Data retention and deletion
-
-You can delete your account at any time from **Account → Delete Account** inside the App. This permanently removes your profile, saved places, recommendation history, and session participation records, and deletes your login credentials. This action cannot be undone.
-
-## Children's privacy
-
-HangoutHunt is not directed to children under 13 (or the relevant minimum age in your region), and we do not knowingly collect information from children under that age.
-
-## Your choices
-
-- You can decline location permission; the App will ask for a zip code instead.
-- You can edit or remove your profile information at any time from the Account tab.
-- You can delete your account and all associated data at any time (see above).
-
-## Changes to this policy
-
-We may update this policy from time to time. We'll update the "Last updated" date above when we do.
-
-## Contact us
-
-Questions about this policy or your data: [support email address].
+    <hr>
+    <div class="footer">
+      HangoutHunt &nbsp;·&nbsp; <a href="../HHSupport/">Support</a>
+    </div>
+  </div>
+</body>
+</html>
