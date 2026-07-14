@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HangoutHunt — Support</title>
+<title>HangoutHunt — Privacy Policy & Support</title>
 <style>
   :root {
     --bg: #0F0F14;
@@ -46,24 +46,48 @@
     letter-spacing: -1px;
     margin: 0 0 8px;
   }
-  .subtitle {
+  .updated {
     color: var(--subtext);
-    font-size: 16px;
+    font-size: 14px;
     margin-bottom: 40px;
   }
   h2 {
     font-size: 20px;
     font-weight: 800;
     letter-spacing: -0.3px;
-    margin: 8px 0 8px;
+    margin: 44px 0 12px;
+    padding-top: 4px;
   }
-  p { font-size: 15.5px; margin: 0 0 14px; }
+  p {
+    color: var(--text);
+    font-size: 15.5px;
+    margin: 0 0 14px;
+  }
+  ul {
+    margin: 0 0 14px;
+    padding-left: 20px;
+  }
+  li {
+    font-size: 15.5px;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  li strong { color: var(--text); }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
   .contact-box {
     background: var(--surface-high);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 28px;
-    margin-bottom: 40px;
+    padding: 24px;
+    margin-top: 12px;
     text-align: center;
   }
   .contact-box .label {
@@ -71,14 +95,40 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--subtext);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     display: block;
   }
   .contact-box .email {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     color: var(--primary);
   }
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0 32px;
+  }
+  .footer {
+    color: var(--subtext);
+    font-size: 13px;
+    text-align: center;
+  }
+  .footer a { color: var(--subtext); text-decoration: underline; }
+  .topnav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .topnav a {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--subtext);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    border-radius: 999px;
+  }
+  .topnav a:hover { color: var(--primary); text-decoration: none; }
   .contact-box .note {
     color: var(--subtext);
     font-size: 13.5px;
@@ -91,27 +141,106 @@
     padding: 20px 24px;
     margin-bottom: 16px;
   }
-  .faq h2 { margin-top: 0; }
-  a { color: var(--primary); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  hr {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 48px 0 32px;
+  .faq h3 {
+    font-size: 16.5px;
+    font-weight: 800;
+    margin: 0 0 8px;
   }
-  .footer {
-    color: var(--subtext);
-    font-size: 13px;
-    text-align: center;
-  }
-  .footer a { color: var(--subtext); text-decoration: underline; }
+  section { scroll-margin-top: 24px; }
 </style>
 </head>
 <body>
   <div class="wrap">
+    <div class="topnav">
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#support">Support</a>
+    </div>
+
+    <section id="privacy">
+    <span class="eyebrow">Legal</span>
+    <h1>Privacy Policy</h1>
+    <div class="updated">Last updated: July 14, 2026</div>
+
+    <p>This policy explains what information the HangoutHunt app collects, why, and how it's handled.</p>
+
+    <h2>Who we are</h2>
+    <p>HangoutHunt is developed by Aarush Parikh and team. Contact: <a href="mailto:aarushparikh999@gmail.com">aarushparikh999@gmail.com</a>.</p>
+
+    <h2>Information we collect</h2>
+
+    <div class="card">
+      <p><strong>Account information.</strong> When you create an account we collect your email address and password. Passwords are handled entirely by our authentication provider, Supabase, using industry-standard hashing — we never see or store your password in plain text.</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Profile information.</strong> First and last name, gender, city, state, zip code, dietary restrictions, and your stated interests (hobbies, music, movies/TV, sports/fitness, cuisines). Most fields are optional.</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Location.</strong> With your permission, we use your device's location (or a city/zip you provide) to find hangout spots near you and to show your position and recommended venues on the in-app map. You can decline location access and enter a zip code manually instead.</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Favorite places.</strong> Place names you enter are looked up against a mapping service to get an address and coordinates, which we store so we can show them on your map.</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Group session data.</strong> When you host or join a group session, we store the session's room code, location, interest tags, participant names, and swipe (like/skip) choices for the duration of the session, so the group's decision can be calculated.</p>
+    </div>
+
+    <div class="card">
+      <p><strong>Usage/recommendation history.</strong> We keep a log of activities suggested to you so we can show your past recommendations.</p>
+    </div>
+
+    <h2>How we use your information</h2>
+    <ul>
+      <li>To create and secure your account</li>
+      <li>To generate personalized hangout/venue recommendations</li>
+      <li>To run group decision-making sessions (room codes, swiping, results)</li>
+      <li>To show your location and recommended places on a map</li>
+      <li>To improve the App</li>
+    </ul>
+    <p>We do not sell your personal information.</p>
+
+    <h2>Third parties we share data with</h2>
+    <p>We use the following service providers to operate the App. Each only receives the minimum data needed to perform its function:</p>
+    <ul>
+      <li><strong>Supabase</strong> — authentication, database, and file storage. Hosts all account and profile data.</li>
+      <li><strong>Groq</strong> — generates activity/venue recommendations from your stated interests, mode (solo/date/family/friends), and a general location string (e.g., "Palatine, IL"). Groq does not receive your name, email, or account identifiers.</li>
+      <li><strong>TomTom</strong> — looks up addresses/coordinates for places you name. Receives only the place name text you enter.</li>
+      <li><strong>Zippopotam.us</strong> — converts a U.S. zip code to a city/state name. Receives only the zip code.</li>
+      <li><strong>Apple/Google</strong> — app distribution and, on Android, mapping (Google Maps) for the in-app map.</li>
+    </ul>
+
+    <h2>Data retention and deletion</h2>
+    <p>You can delete your account at any time from <strong>Account → Delete Account</strong> inside the App. This permanently removes your profile, saved places, recommendation history, and session participation records, and deletes your login credentials. This action cannot be undone.</p>
+
+    <h2>Children's privacy</h2>
+    <p>HangoutHunt is not directed to children under 13, and we do not knowingly collect information from children under that age.</p>
+
+    <h2>Your choices</h2>
+    <ul>
+      <li>You can decline location permission; the App will ask for a zip code instead.</li>
+      <li>You can edit or remove your profile information at any time from the Account tab.</li>
+      <li>You can delete your account and all associated data at any time (see above).</li>
+    </ul>
+
+    <h2>Changes to this policy</h2>
+    <p>We may update this policy from time to time. We'll update the "Last updated" date above when we do.</p>
+
+    <h2>Contact us</h2>
+    <div class="contact-box">
+      <span class="label">Questions about this policy or your data</span>
+      <a class="email" href="mailto:aarushparikh999@gmail.com">aarushparikh999@gmail.com</a>
+    </div>
+    </section>
+
+    <hr>
+
+    <section id="support">
     <span class="eyebrow">Support</span>
-    <h1>HangoutHunt Support</h1>
-    <div class="subtitle">Questions, issues, or feedback — we're happy to help.</div>
+    <h1>Support</h1>
+    <div class="updated">Questions, issues, or feedback — we're happy to help.</div>
 
     <div class="contact-box">
       <span class="label">Contact us directly</span>
@@ -120,33 +249,34 @@
     </div>
 
     <div class="faq">
-      <h2>How do I delete my account?</h2>
+      <h3>How do I delete my account?</h3>
       <p>Open the app, go to the <strong>Account</strong> tab, and tap <strong>Delete Account</strong>. This is permanent and immediately removes your profile, saved places, recommendation history, and session data.</p>
     </div>
 
     <div class="faq">
-      <h2>I forgot my password — how do I reset it?</h2>
+      <h3>I forgot my password — how do I reset it?</h3>
       <p>On the login screen, tap <strong>Forgot password?</strong>, enter your email, and you'll receive a 6-digit code to verify and set a new password.</p>
     </div>
 
     <div class="faq">
-      <h2>The app wants my location — is that required?</h2>
+      <h3>The app wants my location — is that required?</h3>
       <p>No. If you decline location access, you can enter a city or zip code manually and still get hangout recommendations.</p>
     </div>
 
     <div class="faq">
-      <h2>How does a group session / room code work?</h2>
+      <h3>How does a group session / room code work?</h3>
       <p>One person hosts a session and shares a 6-character room code with friends. Anyone with the code can join without creating an account. Once everyone has swiped, the app picks a spot based on votes.</p>
     </div>
 
     <div class="faq">
-      <h2>Something isn't working — what should I include in my message?</h2>
+      <h3>Something isn't working — what should I include in my message?</h3>
       <p>Please include: what you were trying to do, what happened instead, your device model and OS version, and a screenshot if possible. That helps us fix it faster.</p>
     </div>
+    </section>
 
     <hr>
     <div class="footer">
-      HangoutHunt &nbsp;·&nbsp; <a href="../HHPrivacyPolicy/">Privacy Policy</a>
+      HangoutHunt
     </div>
   </div>
 </body>
